@@ -55,6 +55,7 @@ class Display extends CI_Controller {
 
 		if(!empty($datana))
 		$data = array(
+			'form_name' => $datana->name,
 			'data_header' => $dataAsak,
 			'data_all' => $dataMentah
 		);

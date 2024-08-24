@@ -15,3 +15,14 @@
 table {
 	background-color: white;
 }
+
+.dt-layout-cell{
+	color: white;
+}
+.dt-input option{
+	background-color: #1d283c !important;
+}
+
+.dt-search input {
+	width: 250px;
+}

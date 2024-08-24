@@ -23,12 +23,13 @@
     </div>
   </div>
   <div class="app-content">
- <h2 class="text-putih" >Submitted Data Formulir</h2>
+ <h2 class="text-putih" >Submitted Data </h2>
+ <h4 class="text-putih">Formulir: <?= $form_name; ?></h4>
     
   <div id="table-container" class="">
     <table id="table-data" class="display">
     <?php if(isset($data_all)): ?>
-      <thread>
+      <thead>
         <tr>
            <th>ID</th>
             <?php if(isset($data_header)): ?>
@@ -39,7 +40,7 @@
             <th>Username</th>
              <th>Date Created</th>
         </tr>
-      </thread>
+      </thead>
       <tbody>
       <?php foreach($data_all as $data => $val): ?>
         <tr>
