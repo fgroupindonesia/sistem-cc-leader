@@ -7,14 +7,13 @@ class Works extends CI_Controller {
 		parent::__construct();
 		$this->load->model('DBFormulir');
 		$this->load->model('DBDynamic');
+		$this->load->model('DBUser');
 	}
 
 	public function logout()
 	{
 		redirect('/login', 'location', 302);
 	}
-
-	
 
 	public function add_data_formulir(){
 
@@ -116,15 +115,93 @@ class Works extends CI_Controller {
 
 	}
 
+	public function delete_all_data_formulir()
+	{
+		
+		$namaTable = $this->input->post('name');
+
+		$this->DBDynamic->update_table_name($namaTable);
+
+		$result = $this->DBDynamic->delete_all();
+
+		echo $result;
+
+	}
+
 	public function delete_formulir()
 	{
 
 		$id = $this->input->post('id');
-		
+		$tableName = $this->input->post('name');
+				
 		$result = $this->DBFormulir->delete($id);
+
+		$this->DBDynamic->update_table_name($tableName);
+		$this->DBDynamic->drop();
 
 		echo $result;
 
+	}
+
+	public function add_user()
+	{
+
+		$f = $this->input->post('fullname');
+		$u = $this->input->post('username');
+		$p = $this->input->post('pass');
+		$nhp = $this->input->post('no_hp');
+		$e = $this->input->post('email');
+		$d = $this->input->post('divisi');
+
+		$data = array(
+			'fullname' => $f,
+			'username' => $u,
+			'pass' => $p,
+			'no_hp' => $nhp,
+			'email' => $e,
+			'divisi' => $d
+		);
+
+		$result = $this->DBUser->insert($data);
+
+		echo $result;
+	}
+
+	public function delete_user()
+	{
+
+		$id = $this->input->post('id');
+
+		$result = $this->DBUser->delete($id);
+
+		echo $result;
+
+	}
+
+	public function update_user()
+	{
+
+		$id = $this->input->post('id');
+		$f = $this->input->post('fullname');
+		$u = $this->input->post('username');
+		$p = $this->input->post('pass');
+		$nhp = $this->input->post('no_hp');
+		$e = $this->input->post('email');
+		$d = $this->input->post('divisi');
+
+		$data = array(
+			'id' => $id,
+			'fullname' => $f,
+			'username' => $u,
+			'pass' => $p,
+			'no_hp' => $nhp,
+			'email' => $e,
+			'divisi' => $d
+		);
+
+		$result = $this->DBUser->update($data, $id);
+
+		echo $result;
 	}
 
 	public function update_formulir()

@@ -6,6 +6,10 @@ class DBDynamic extends CI_Model {
 	private $table_name = "table_xxx";
 
 	public function update_table_name($newName){
+
+		$newName = str_replace(" ", "_", $newName);
+		$newName = strtolower($newName);
+
 		if(strpos($newName, 'table_') !== true){
 			$this->table_name = "table_" . $newName;
 		}else{
@@ -32,6 +36,17 @@ class DBDynamic extends CI_Model {
 
         return false;
 
+	}
+
+	public function drop(){
+
+		$sqlDROP = "DROP TABLE " . $this->table_name;
+
+		if ($this->db->query($sqlDROP)) {
+            return true;
+        }
+
+        return false;
 	}
 
 	private function create_sql_column($dataMasuk){
@@ -96,6 +111,20 @@ class DBDynamic extends CI_Model {
 
 		$this->db->where('id', $id);
         $this->db->delete($this->table_name);
+
+        $rowsAffected = $this->db->affected_rows(); 
+		
+		if($rowsAffected>=1){
+			return true;
+		}
+		
+		return false;
+		
+	}
+
+	public function delete_all(){
+
+        $this->db->empty_table($this->table_name);
 
         $rowsAffected = $this->db->affected_rows(); 
 		

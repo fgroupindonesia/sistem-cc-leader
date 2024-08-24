@@ -30,7 +30,7 @@
   <div class="row">
       <div class="col rounded-box">
         <img src="/assets/images/user.png">
-        <span>Total Staff : a</span>
+        <span>Total User : a</span>
       </div>
       <div class="col rounded-box">
         <img src="/assets/images/form.png">
@@ -59,11 +59,11 @@
       </div>
        <div class="col">
         <img src="/assets/images/add.png">
-        <br><a href="/add-new-staff">Tambah Staff Baru</a>
+        <br><a href="/add-new-user">Tambah User Baru</a>
       </div>
       <div class="col">
         <img src="/assets/images/all.png">
-        <br><a href="/management-staff">Management Staff</a>
+        <br><a href="/management-user">Management User</a>
       </div>
   </div>
    <!-- Control Area -->

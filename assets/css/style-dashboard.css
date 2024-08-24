@@ -11,6 +11,18 @@
   height: 32px !important;
 }
 
+.dt-layout-row {
+  color: white;
+}
+
+.dt-layout-row option {
+  background-color: var(--app-bg);
+}
+
+#table-data{
+  background-color: white;
+}
+
 .segment {
   color: white;
 }

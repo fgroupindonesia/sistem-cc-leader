@@ -104,9 +104,25 @@ class Display extends CI_Controller {
 		
 	}
 
-	public function add_new_staff(){
+	public function edit_user(){
 
-		$this->load->view('form_staff_baru');
+		$id = $this->input->get('id');
+
+		$data = $this->DBUser->getSpecific($id);
+
+		$datana = array(
+			'data_user' => $data
+		);
+
+		//echo var_dump($data);
+
+		$this->load->view('form_user_baru', $datana);
+
+	}
+
+	public function add_new_user(){
+
+		$this->load->view('form_user_baru');
 		
 	}
 
@@ -130,9 +146,22 @@ class Display extends CI_Controller {
 		
 	}
 
-	public function management_staff(){
+	public function management_user(){
 
-		$this->load->view('management_staff');
+		$data = $this->DBUser->getAll();
+
+		if(!empty($data)){
+		$data = array_reverse($data);
+
+		$dataNa = array(
+			'data_user' => $data
+		);
+
+		$this->load->view('management_user', $dataNa);
+		
+		}else{
+				$this->load->view('management_user');	
+		}
 		
 	}
 

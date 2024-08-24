@@ -3,6 +3,9 @@
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 <script src="/assets/js/dashboard.js" type="text/javascript" ></script>
 
+<link rel="stylesheet" href="/assets/css/dataTables.dataTables.css" />
+
+
 <div class="app-container">
   <div class="sidebar">
     <div class="sidebar-header">
@@ -43,7 +46,7 @@
       </div>
   </div>
 
-  <table>
+  <table id="table-data" class="display">
   <thead>
     <tr>
       <th class="th-check"> ID</th>
@@ -52,12 +55,14 @@
       <th class="no-sort">Display</th>
       <th class="no-sort">Submitted Data</th>
     </tr>
+  </thead>
+  <tbody>
     <?php if(!empty($data_formulir)): ?>
       <?php $no = 0; $safeName = ""; ?>
     <?php foreach($data_formulir as $data): ?>
       <?php $no++;  $safeName = str_replace(" ", "_", $data->name); ?>
      <tr>
-       <td> <input id="<?=$data->id;?>" type="checkbox"> #<?= $no; ?> </td>
+       <td> <input id="<?=$data->id;?>" data-form="<?= $data->name; ?>" type="checkbox"> #<?= $no; ?> </td>
        <td> <?= $data->name; ?> </td>
        <td> <?= $data->date_created; ?> </td>
        <td> <a id="display-formulir-link" href="/display-formulir?id=<?= $data->id; ?>">View</a> | 
@@ -68,9 +73,6 @@
 
     <?php endforeach;?>
     <?php endif;?>
-  </thead>
-  <tbody>
-    -
   </tbody>
 </table>
 
@@ -78,4 +80,6 @@
 
 <script src="/assets/js/jquery371.min.js"></script>
   <script src="/assets/js/jquery-ui.min.js"></script>
+
+<script src="/assets/js/dataTables.js"></script>
 <script src="/assets/js/management.js"></script>

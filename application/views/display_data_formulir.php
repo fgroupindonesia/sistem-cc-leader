@@ -42,6 +42,7 @@
         </tr>
       </thead>
       <tbody>
+        <?php if(!empty($data_all)): ?>
       <?php foreach($data_all as $data => $val): ?>
         <tr>
           <?php $dataBaru = (array) $val; ?>
@@ -50,9 +51,19 @@
         <?php endforeach; ?>
         </tr>
        <?php endforeach; ?>
+     <?php endif; ?>
       </tbody> 
      <?php endif; ?>
    </table>
+  </div>
+
+  <div class="row justify-content-start">
+    <div  class="text-white col-md-2 clear-all-container">
+      <?php if(!empty($data_all)): ?>
+      <img src="/assets/images/delete.png"><br>
+      <span id="clear-all-link" data-form="<?= $form_name ;?>" >Clear All</span>
+      <?php endif; ?>
+    </div>
   </div>
 
   <div id="form-view" class="">

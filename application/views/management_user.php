@@ -3,6 +3,8 @@
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 <script src="/assets/js/dashboard.js" type="text/javascript" ></script>
 
+<link rel="stylesheet" href="/assets/css/dataTables.dataTables.css" />
+
 <div class="app-container">
   <div class="sidebar">
     <div class="sidebar-header">
@@ -22,46 +24,70 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
       </button>
     </div>
-  </div>
+   </div>
   <div class="app-content">
- <h2 class="text-putih" >Management Staff</h2>
+ <h2 class="text-putih" >Management User</h2>
     
   <div class="menu row">
       <div class="col item">
-       <a href="/add-new-staff"> 
+       <a href="/add-new-user"> 
          <img src="/assets/images/add1.png">
          <br>Add 
        </a>
       </div>
       <div class="col item">
+      <a href="/edit-user" id="edit-data">
         <img src="/assets/images/edit.png">
         <br>Edit
+      </a>
       </div>
       <div class="col item">
-        <img src="/assets/images/delete.png">
-        <br>Delete
+        <a href="/delete-user" id="delete-data">
+          <img src="/assets/images/delete.png">
+          <br>Delete
+        </a>
       </div>
   </div>
 
-  <table>
+  <table id="table-data" class="display">
   <thead>
     <tr>
       <th class="th-check"> ID</th>
-      <th>Nama Lengkap</th>
+      <th>Fullname</th>
       <th>Username</th>
-      <th>Bagian</th>
-      
+      <th>Password</th>
+      <th>Handphone</th>
+      <th>Email</th>
+      <th>Divisi</th>
+      <th>Tanggal Dibuat</th>
     </tr>
-     <tr>
-       <td> <input type="checkbox"> #01 </td>
-       <td> Udin Markudin </td>
-       <td> udin97  </td>
-       <td> IT Support </td>
-     </tr>
   </thead>
-  <tbody>
-    -
-  </tbody>
+   <tbody>
+    <?php if(!empty($data_user)): ?>
+      <?php $no = 0; ?>
+    <?php foreach($data_user as $data): ?>
+      <?php $no++;  ?>
+     <tr>
+       <td> <input id="<?=$data->id;?>" type="checkbox"> #<?= $no; ?> </td>
+       <td> <?= $data->fullname; ?> </td>
+       <td> <?= $data->username; ?> </td>
+       <td> <a href="#" id="show-pass-link">Show</a> </td>
+       <td> <?= $data->no_hp; ?> </td>
+       <td> <?= $data->email; ?> </td>
+       <td> <?= $data->divisi; ?> </td>
+       <td> <?= $data->date_created; ?> </td>
+     </tr>
+
+    <?php endforeach;?>
+    <?php endif;?>
+   </tbody>
 </table>
 
 </div>
+
+
+<script src="/assets/js/jquery371.min.js"></script>
+  <script src="/assets/js/jquery-ui.min.js"></script>
+
+<script src="/assets/js/dataTables.js"></script>
+<script src="/assets/js/management.js"></script>

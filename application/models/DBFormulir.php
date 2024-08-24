@@ -46,6 +46,19 @@ class DBFormulir extends CI_Model {
 		
 	}
 
+	public function delete_all(){
+
+        $this->db->delete($this->table_name);
+
+        $rowsAffected = $this->db->affected_rows(); 
+		
+		if($rowsAffected>=1){
+			return true;
+		}
+		
+		return false;
+		
+	}
    
 	
 	public function getSpecific($id){

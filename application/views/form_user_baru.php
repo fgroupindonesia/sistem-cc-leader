@@ -24,53 +24,61 @@
     </div>
   </div>
   <div class="app-content">
- <h2 class="text-putih" >Staff Baru</h2>
-    
+   <?php if(isset($data_user)): ?> 
+    <h2 class="text-putih" >User Edit</h2>
+      <?php else: ?>
+       <h2 class="text-putih" >User Baru</h2>
+    <?php endif; ?>
  <div class="formulir-baru">
      
     <div>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<form action="insert_user.php" method="POST" >
+<?php if(isset($data_user)): ?>
+<form id="form-user" action="/update-user" method="POST" >
+  <input type="hidden" name="id" value="<?= $data_user->id; ?>" >
+<?php else: ?>
+<form id="form-user" action="/insert-user" method="POST" >
+<?php endif; ?>  
   <div class="form-group row">
     <label for="text1" class="col-4 col-form-label">Full Name</label> 
     <div class="col-8">
-      <input id="text1" name="fullname" type="text" class="form-control">
+      <input id="text1" name="fullname" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->fullname : ''; ?>">
     </div>
   </div>
   <div class="form-group row">
     <label for="text2" class="col-4 col-form-label">Username</label> 
     <div class="col-8">
-      <input id="text2" name="username" type="text" class="form-control">
+      <input id="text2" name="username" <?= $b = isset($data_user)? 'readonly' : ''; ?> type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->username : ''; ?>">
     </div>
   </div>
   <div class="form-group row">
     <label for="text3" class="col-4 col-form-label">Password</label> 
     <div class="col-8">
-      <input id="text3" name="pass" type="password" class="form-control">
+      <input id="text3" name="pass" type="password" class="form-control" value="<?= $a = isset($data_user)? $data_user->pass : ''; ?>">
     </div>
   </div>
   <div class="form-group row">
     <label for="text4" class="col-4 col-form-label">Divisi Bagian</label> 
     <div class="col-8">
-      <input id="text4" name="divisi" type="text" class="form-control">
+      <input id="text4" name="divisi" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->divisi : ''; ?>">
     </div>
   </div> 
   <div class="form-group row">
-    <label for="text4" class="col-4 col-form-label">No HP:</label> 
+    <label for="text5" class="col-4 col-form-label">No HP:</label> 
     <div class="col-8">
-      <input id="text4" name="no_hp" type="text" class="form-control">
+      <input id="text5" name="no_hp" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->no_hp : ''; ?>">
     </div>
   </div> 
   <div class="form-group row">
-    <label for="text4" class="col-4 col-form-label">Email</label> 
+    <label for="text6" class="col-4 col-form-label">Email</label> 
     <div class="col-8">
-      <input id="text4" name="email" type="email" class="form-control">
+      <input id="text6" name="email" type="email" class="form-control" value="<?= $a = isset($data_user)? $data_user->email : ''; ?>">
     </div>
   </div> 
   <div class="form-group row">
     <div class="offset-4 col-8">
-      <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+      <button id="btn-save-user" name="submit" type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>
 </form>
