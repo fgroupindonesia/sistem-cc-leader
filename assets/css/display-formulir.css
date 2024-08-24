@@ -1,0 +1,13 @@
+
+.btn-default {
+	background-color: orange;
+	border-radius: 5px;
+	width: 75px;
+	height: 45px;
+	display: block;
+}
+
+.btn-default:hover{
+	background-color: red !important;
+	color: white !important;
+}

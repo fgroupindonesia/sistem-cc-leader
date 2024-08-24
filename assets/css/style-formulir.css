@@ -1,0 +1,11 @@
+
+.formulir {
+    width: 80% !important;
+    border-style: ridge;
+    border-radius: 5px;
+}
+
+.form-elements label{
+    color: black;
+}
+
