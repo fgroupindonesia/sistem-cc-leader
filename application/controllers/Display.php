@@ -11,6 +11,39 @@ class Display extends CI_Controller {
 		$this->load->model('DBDynamic');
 	}
 
+	public function getSession($key){
+
+		return $this->session->userdata($key);
+
+	}
+
+	public function settings(){
+
+		$id = $this->getSession('id');
+		$data = $this->DBUser->getSpecificBy('id', $id);
+
+		$div_it 	= "";
+		$div_doc 	= "";
+		$div_lead 	=  "";
+
+		if($data->divisi == "IT"){
+			$div_it = "selected";
+		}else if($data->divisi == "Document Control"){
+			$div_doc = "selected";
+		}else if($data->divisi == "Leader"){
+			$div_lead = "selected";
+		}
+
+		$datana = array(
+			'data_user' => $data,
+			'div_it' 	=> $div_it,
+			'div_doc' 	=> $div_doc,
+			'div_lead'	=> $div_lead
+		);
+
+		$this->load->view('form_settings', $datana);
+
+	}
 	
 	public function display_formulir(){
 
@@ -55,6 +88,7 @@ class Display extends CI_Controller {
 
 		if(!empty($datana))
 		$data = array(
+			'code_json' => $datana->code_json,
 			'form_name' => $datana->name,
 			'data_header' => $dataAsak,
 			'data_all' => $dataMentah
@@ -100,7 +134,32 @@ class Display extends CI_Controller {
 
 	public function add_new_formulir(){
 
-		$this->load->view('form_data_baru');
+		$datana = array(
+			'name' 		=> "",
+			'code_json' => ""
+		);
+
+		$this->load->view('form_data_baru', $datana);
+		
+	}
+
+	public function edit_formulir(){
+
+		$id = $this->input->get('id');
+
+ 	$data = $this->DBFormulir->getSpecificBy('id', $id);
+
+ 	if($data != false){
+ 		$datana = array(
+ 			'name' 		=> $data->name,
+ 			'code_json' => $data->code_json,
+ 			'status' 	=> 'edit',
+ 			'id'		=> $id
+ 		);
+
+ 	}
+
+		$this->load->view('form_data_baru', $datana);
 		
 	}
 
@@ -110,8 +169,23 @@ class Display extends CI_Controller {
 
 		$data = $this->DBUser->getSpecific($id);
 
+		$div_it 	= "";
+		$div_doc 	= "";
+		$div_lead 	=  "";
+
+		if($data->divisi == "IT"){
+			$div_it = "selected";
+		}else if($data->divisi == "Document Control"){
+			$div_doc = "selected";
+		}else if($data->divisi == "Leader"){
+			$div_lead = "selected";
+		}
+
 		$datana = array(
-			'data_user' => $data
+			'data_user' => $data,
+			'div_it' 	=> $div_it,
+			'div_doc' 	=> $div_doc,
+			'div_lead'	=> $div_lead
 		);
 
 		//echo var_dump($data);
@@ -122,7 +196,13 @@ class Display extends CI_Controller {
 
 	public function add_new_user(){
 
-		$this->load->view('form_user_baru');
+		$data = array(
+			"div_it" => "",
+			"div_doc" => "",
+			"div_lead" => ""
+		);
+
+		$this->load->view('form_user_baru', $data);
 		
 	}
 
@@ -167,7 +247,34 @@ class Display extends CI_Controller {
 
 	public function dashboard(){
 
-		$this->load->view('dashboard');
+		$dataForm = $this->DBFormulir->getAllLimitSortBy(10, 'DESC');
+		$dataUser = $this->DBUser->getAllLimitBy(10);
+
+		// if we have no data
+		// the end result will be false
+
+		$t_user = 0;
+		$t_form = 0;
+
+
+		//echo var_dump($user_divisi);
+
+		if($dataUser != false){
+			$t_user = count($dataUser);
+		}
+
+		if($dataForm != false){
+			$t_form = count($dataForm);
+		}
+
+		$datana = array(
+			'data_user' => $dataUser,
+			'data_form' => $dataForm,
+			'total_user' => $t_user,
+			'total_form' => $t_form
+		);
+
+		$this->load->view('dashboard', $datana);
 		
 	}
 

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
 
+.segment table {
+  margin: auto;
+  
+}
+
 .text-putih {
   color : white;
   font-weight: bold;
@@ -36,6 +41,10 @@ hr {
   padding: 0;
   border-color: white !important;
   color: white !important;
+}
+
+.sidebar {
+  max-width: 225px;
 }
 
 .text-left {

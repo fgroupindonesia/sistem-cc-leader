@@ -9,3 +9,11 @@
     color: black;
 }
 
+#fb-editor {
+    height: 600px;
+    overflow-y: auto;
+}
+
+#hidden-code-json {
+    display: none;
+}

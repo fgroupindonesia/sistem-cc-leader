@@ -2,7 +2,6 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/style-dashboard.css">
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 <link href="/assets/css/style-formulir.css" rel="stylesheet">
-<script src="/assets/js/dashboard.js" type="text/javascript" ></script>
 
 <div class="app-container">
   <div class="sidebar">
@@ -25,10 +24,17 @@
     </div>
   </div>
   <div class="app-content">
+    <?php if(!isset($status)): ?>
  <h2 class="text-putih" >Formulir Baru</h2>
-    
+<?php elseif($status == "edit"): ?>
+   <h2 class="text-putih" >Formulir Edit</h2>
+  <?php endif; ?>
+
  <label>Nama : </label> 
- <input id="nama-formulir" type="text" value="" placeholder="nama formulir" name="nama" >
+ <input id="nama-formulir" type="text" value="<?=$name;?>" placeholder="nama formulir" name="nama" >
+
+<textarea id="hidden-code-json"><?=$code_json;?>
+</textarea>
 
  <div class="formulir-baru">
         <div id="fb-editor">
@@ -42,3 +48,6 @@
   <script src="/assets/js/form-builder.min.js"></script>
 <script src="/assets/js/form-render.min.js"></script>
   <script src="/assets/js/custom-actions.js"> </script>
+  <?php if(isset($status)): ?>
+  <script src="/assets/js/display-formulir.js"> </script>
+  <?php endif; ?>

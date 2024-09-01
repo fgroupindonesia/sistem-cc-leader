@@ -4,13 +4,19 @@ const URL_UPDATE_USER = "/update-user";
 const URL_MANAGEMENT_FORM = "/management-formulir";
 const URL_MANAGEMENT_USER = "/management-user";
 
+var fb = $('#fb-editor');
+let formna;
+
 $(document).ready( function () {
     
-    var fb = $('#fb-editor');
-
+    // dont do making builder if the 
+    // source is coming from editing stages
+      
     if(fb.length>0){
-    let formna = fb.formBuilder();
+      formna = fb.formBuilder();
     }
+
+    dontTakeHTMLPaste();
 
     $('body').on('click', '.save-template', function(){
         //alert('a');
@@ -44,6 +50,40 @@ $(document).ready( function () {
     });
 
   });
+
+function dontTakeHTMLPaste(){
+
+
+$('body').on('focus', '.input-wrap,input', function(x) {
+
+  $(this).on('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'v') {
+
+         window.addEventListener('paste', e => {
+
+        let divEl = document.activeElement;
+        var elementType = document.activeElement.tagName;
+        //console.log('di ' + elementType);
+
+            if(elementType === "DIV"){
+             e.preventDefault();
+            }
+
+             let data = e.clipboardData.getData('text/plain');
+             //alert('aya ' + data);
+             if(elementType === "DIV"){
+                $(divEl).text(data);
+             }else{
+                $(divEl).val(data);
+             }
+
+            });
+    
+    }
+  });
+});
+
+}
 
     
 function saveDataIntoDB(datana, URLna){

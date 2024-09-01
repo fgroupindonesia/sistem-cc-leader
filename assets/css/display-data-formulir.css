@@ -1,4 +1,54 @@
 
+#hidden-code {
+	display: none;
+}
+
+
+
+.json-form-data {
+	display: none;
+}
+
+#split-container {
+	color: white !important;
+}
+
+.box-side {
+	list-style-type: none;
+	margin-left: -35px !important;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 200px;
+}
+
+.item-menu:hover {
+	background-color: grey;
+	cursor: pointer;
+}
+
+.formbuilder-button {
+	display: none;
+}
+
+.item-menu{
+	width: 175px;
+}
+
+.item-menu > input{
+	display: inline-block;
+	width: 15px;
+	text-align: left !important;
+}
+
+.item-list {
+	display: block;
+	width: 200px;
+}
+
+.hidden{
+	display: none;
+}
+
 .btn-default {
 	background-color: orange;
 	border-radius: 5px;
@@ -10,6 +60,10 @@
 .btn-default:hover{
 	background-color: red !important;
 	color: white !important;
+}
+
+#date-created{
+	color : white;
 }
 
 table {
@@ -35,6 +89,13 @@ table {
 	
 }
 
+#convert-excel-image {
+	width: 24px;
+	height: 24px;
+
+}
+
+
 .clear-all-container span{
 	display: block;
 	width: 100%;
@@ -46,10 +107,16 @@ table {
 	margin: 10px;
 }
 
-#clear-all-link:hover {
+#clear-all-link:hover, #convert-to-excel:hover, #switch-display:hover {
 	cursor: pointer;
 	background-color: yellow;
 	border-radius: 15px;
 	color: red !important;
+}
+
+#clear-all-link, #convert-to-excel, #switch-display{
+	
+	display: inline-block;
+	text-align: center;
 }
 

@@ -1,7 +1,6 @@
 <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assets/css/style-dashboard.css">
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-<script src="/assets/js/dashboard.js" type="text/javascript" ></script>
 
 <div class="app-container">
   <div class="sidebar">
@@ -17,7 +16,7 @@
       <div class="account-info-picture">
        
       </div>
-      <div class="account-info-name">Monica G.</div>
+      <div class="account-info-name"> </div>
       <button class="account-info-more">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
       </button>
@@ -30,15 +29,15 @@
   <div class="row">
       <div class="col rounded-box">
         <img src="/assets/images/user.png">
-        <span>Total User : a</span>
+        <span>Total User : <strong id="total-user"><?= $total_user; ?></strong></span>
       </div>
       <div class="col rounded-box">
         <img src="/assets/images/form.png">
-        <span>Total Forms: b</span>
+        <span>Total Forms: <strong id="total-form"><?= $total_form; ?></strong></span>
       </div>
       <div class="col rounded-box">
         <img src="/assets/images/data.png">
-        <span>Total Submitted Data: c</span>
+        <span>Date: <strong id="today">xx</strong></span>
       </div>
 
   </div>
@@ -48,7 +47,14 @@
 
   <!-- Control Area --> 
   <div class="menu row">
-    <h3 class="text-left">Actions</h3>
+    <?php if($user_divisi == "IT"): ?>
+    <h3 class="text-left">Actions (All  Access)</h3>
+   <?php elseif($user_divisi == "Document Control"): ?>
+    <h3 class="text-left">Actions (Special Access)</h3>
+     <?php elseif($user_divisi == "Leader"): ?>
+    <h3 class="text-left">Actions (Form)</h3>
+   <?php endif; ?>
+    <?php if($user_divisi == "IT"): ?>
       <div class="col">
         <img src="/assets/images/add.png">
         <br><a href="/add-new-formulir">Buat Formulir Baru</a>
@@ -65,6 +71,33 @@
         <img src="/assets/images/all.png">
         <br><a href="/management-user">Management User</a>
       </div>
+    <?php endif; ?>
+
+     <?php if($user_divisi == "Leader"): ?>
+      <?php if($data_form != false): ?>
+        <?php foreach ($data_form as $dataF): ?>
+      <div class="col">
+        <img src="/assets/images/edit.png">
+        <?php $urlname = strtolower(str_replace(' ','_', $dataF->name)); ?>
+        <br><a href="/form?name=<?=$urlname;?>">Formulir <?= $dataF->name ;?></a>
+      </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    <?php endif; ?>
+
+     <?php if($user_divisi == "Document Control"): ?>
+      <?php if($data_form != false): ?>
+        <?php foreach ($data_form as $dataF): ?>
+      <div class="col">
+        <img src="/assets/images/edit.png">
+        <?php $urlname = strtolower(str_replace(' ','_', $dataF->name)); ?>
+        <br>Formulir <?= $dataF->name ;?>
+        <br><a href="/edit-formulir?id=<?=$dataF->id;?>">Edit</a> | <a href="/display-data-formulir?id=<?=$dataF->id;?>">Check</a>
+      </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    <?php endif; ?>
+
   </div>
    <!-- Control Area -->
 
@@ -72,37 +105,57 @@
 
   <!-- recent data -->
   <div class="row">
-      <div class="col-md-6 segment">
+      <div class="col segment">
         <h3>Recent Formulir</h3>
         <table>
-            <th>
-              <td>No.</td>
-              <td>Nama</td>
-              <td>Date Created</td>
-            </th>
+            <thead>
+              <tr>
+              <th>No.</th>
+              <th>Nama</th>
+              <th>Date Created</th>
+              </tr>
+            </thead>
+            <tbody>
+             <?php if(!empty($data_form)): ?>
+                <?php $nomer=1; ?>
+                <?php foreach($data_form as $datana): ?>  
             <tr>
-              <td>1</td>
-              <td>Formulir Sebelum Kerja</td>
-              <td>Senin, 24 Juli 2024</td>
+              <td><?= $nomer ;?></td>
+              <td><?= $datana->name ;?></td>
+              <td><?= $datana->date_created ;?></td>
             </tr>
+                <?php $nomer++; ?>
+                <?php endforeach; ?>
+              <?php endif; ?>
+          </tbody>
         </table>
       </div>
 
-    <div class="col-md-4 segment">
-      <h3>Latest Staff</h3>
+    <div class="col segment">
+      <h3>Latest Users</h3>
           <table>
-            <th>
-              <td>No.</td>
-              <td>Fullname </td>
-              <td>Email </td>
-              <td>Date Created</td>
-            </th>
+            <thead>
+              <tr>
+              <th>No.</th>
+              <th>Fullname </th>
+              <th>Email </th>
+              <th>Date Created</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if(!empty($data_user)): ?>
+                <?php $nomer=1; ?>
+                <?php foreach($data_user as $datana): ?>  
             <tr>
-              <td>1</td>
-              <td>Samsudin </td>
-              <td>samson@udin.com </td>
-              <td>Senin, 24 Juli 2024</td>
+              <td><?= $nomer ;?></td>
+              <td><?= $datana->fullname ;?></td>
+              <td><?= $datana->email ;?> </td>
+              <td><?= $datana->date_created ;?></td>
             </tr>
+                <?php $nomer++; ?>
+                <?php endforeach; ?>
+              <?php endif; ?>
+          </tbody>
         </table>
     </div>
 
@@ -110,3 +163,8 @@
   <!-- recent data -->
 
 </div>
+
+
+<script src="/assets/js/jquery371.min.js"></script>
+  <script src="/assets/js/jquery-ui.min.js"></script>
+  <script src="/assets/js/dashboard.js" type="text/javascript" ></script>

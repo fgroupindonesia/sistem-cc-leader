@@ -25,8 +25,69 @@
   <div class="app-content">
  <h2 class="text-putih" >Submitted Data </h2>
  <h4 class="text-putih">Formulir: <?= $form_name; ?></h4>
+
+ <div class="row justify-content-start">
     
-  <div id="table-container" class="">
+      <?php if($user_divisi == "IT"): ?>
+    <div  id="clear-all-link" class="text-white col-md-1 clear-all-container">
+      <img src="/assets/images/delete.png"><br>
+      <span  data-form="<?= $form_name ;?>" >Clear All</span>
+    </div>
+
+    <div id="convert-to-excel"  class="text-white col-md-1 clear-all-container"> 
+      <img id="convert-excel-image" src="/assets/images/excel.png"> <br>
+      <span  > Convert Excel </span>
+    </div>
+
+     <div id="switch-display"  class="text-white col-md-1 clear-all-container"> 
+      <img  src="/assets/images/reload.png"> <br>
+      <span  > Switch Display </span>
+    </div>
+
+    <?php endif; ?>
+
+  </div>
+ 
+ <!-- split container area -->
+ <div class="row display" id="split-main">  
+ <div  class="col-md-3" id="split-container" >
+  <ul class="box-side">
+
+     <?php if(!empty($data_all)): ?>
+       <?php foreach($data_all as $data => $val): ?>
+         <?php $dataBaru = (array) $val; $tempData = array(); // for json storing?>
+         <li class="item-menu" data-date-created="<?=$dataBaru['date_created'];?>">
+          <input type="checkbox" value="<?=$dataBaru['id'];?>" > 
+        <?php $post = 0; $colNeeded1 = 1; $colNeeded2 = sizeof($dataBaru)-1 ; ?>  
+        
+        <?php foreach($dataBaru as $data_in => $value): ?>
+          <?php if(($post == $colNeeded1) || ($post == $colNeeded2)): ?>
+                  <span class="item-list"><?= $value; ?> </span>
+          <?php endif; $post++; $tempData[] = $value; ?>
+        <?php endforeach; ?>
+            <pre class="json-form-data"><?=json_encode($dataBaru);?> </pre>
+
+             </li>
+      <?php endforeach; ?>
+     <?php endif; ?>
+ </ul>
+ </div>
+
+ <div class="col-md-8">
+    <textarea id="hidden-code">
+        <?= $code_json; ?>
+    </textarea>
+
+    <span id="date-created"> </span>
+    <div id="form-render">
+
+    </div>
+ </div>
+
+</div>
+<!-- split container area ended -->
+
+  <div id="table-container" class="hidden">
     <table id="table-data" class="display">
     <?php if(isset($data_all)): ?>
       <thead>
@@ -57,18 +118,8 @@
    </table>
   </div>
 
-  <div class="row justify-content-start">
-    <div  class="text-white col-md-2 clear-all-container">
-      <?php if(!empty($data_all)): ?>
-      <img src="/assets/images/delete.png"><br>
-      <span id="clear-all-link" data-form="<?= $form_name ;?>" >Clear All</span>
-      <?php endif; ?>
-    </div>
-  </div>
+  
 
-  <div id="form-view" class="">
-
-  </div>
 
   
 
@@ -82,3 +133,4 @@
 <script src="/assets/js/dataTables.js"></script>
 <script src="/assets/js/display-formulir.js"></script>
 <script src="/assets/js/display-data-formulir.js"></script>
+<script src="/assets/js/convert-excel.js"></script>

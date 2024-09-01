@@ -2,7 +2,6 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/style-dashboard.css">
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 <link href="/assets/css/display-formulir.css" rel="stylesheet">
-<script src="/assets/js/dashboard.js" type="text/javascript" ></script>
 
 <div class="app-container">
   <div class="sidebar">

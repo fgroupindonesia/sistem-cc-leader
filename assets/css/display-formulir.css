@@ -11,3 +11,25 @@
 	background-color: red !important;
 	color: white !important;
 }
+
+.form-group {
+	border-style: ridge;
+	border-radius: 12px;
+	border-color: white;
+	padding: 15px;
+
+}
+
+.formbuilder-radio input {
+	width: 30px !important;
+}
+
+.app-content form {
+	height: 800px;
+	overflow-y: auto;
+}
+
+
+
+
+

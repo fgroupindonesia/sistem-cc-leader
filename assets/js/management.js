@@ -10,6 +10,36 @@ jQuery(function($) {
 		
 new DataTable('#table-data');
 
+	
+
+	$('.copas').on('click', function(e){
+
+		e.preventDefault();
+		let copLink = $(this);
+
+		let pass = $(this).data('real');
+		copyTextToClipboard(pass);
+		alert('copied!');
+
+	});
+
+	$('.show-pass-link').on('click', function(e){
+
+		e.preventDefault();
+		let elLink = $(this);
+
+		let valueExact = $(this).data('real');
+		let content = $(this).text();
+		if(content == 'Show'){
+			$(this).text(valueExact);
+			elLink.next().show();
+		}else{
+			$(this).text('Show');
+			elLink.next().hide();
+		}
+
+	});
+
 	$('body').on('click', '#edit-data', function(e){
 
 		e.preventDefault();
@@ -85,6 +115,16 @@ new DataTable('#table-data');
 
 
 });
+
+function copyTextToClipboard(data) {
+
+  //alert('ada ' + data);
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val(data).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
 
 function displayForm(datajson, urltarget){
 

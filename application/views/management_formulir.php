@@ -1,7 +1,12 @@
+<?php
+  // because once logged in this session is created earlier
+  $user_divisi = $this->session->userdata('divisi');
+
+?>
+
 <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assets/css/style-dashboard.css">
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-<script src="/assets/js/dashboard.js" type="text/javascript" ></script>
 
 <link rel="stylesheet" href="/assets/css/dataTables.dataTables.css" />
 
@@ -30,20 +35,24 @@
  <h2 class="text-putih" >Management Formulir</h2>
     
   <div class="menu row">
+    <?php if($user_divisi == "IT"): ?>
       <div class="col item">
        <a href="/add-new-formulir"> 
          <img src="/assets/images/add1.png">
          <br>Add 
        </a>
       </div>
+    <?php endif; ?>
       <div class="col item">
         <img src="/assets/images/edit.png">
-        <br>Edit
+        <br><a href="" id="edit-data">Edit</a>
       </div>
+       <?php if($user_divisi == "IT"): ?>
       <div class="col item">
         <img src="/assets/images/delete.png">
         <br><a href="" id="delete-data">Delete</a>
       </div>
+    <?php endif; ?>
   </div>
 
   <table id="table-data" class="display">
@@ -83,3 +92,5 @@
 
 <script src="/assets/js/dataTables.js"></script>
 <script src="/assets/js/management.js"></script>
+
+<script src="/assets/js/dashboard.js" type="text/javascript" ></script>

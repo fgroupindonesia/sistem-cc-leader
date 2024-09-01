@@ -10,6 +10,35 @@ class Works extends CI_Controller {
 		$this->load->model('DBUser');
 	}
 
+	public function verify_login(){
+
+		$u = $this->input->post('username');
+		$p = $this->input->post('pass');
+
+		$data_user = $this->DBUser->getSpecificBy('username', $u);
+
+		if($data_user != false){
+
+			$datana = array(
+			'username' 	=> $data_user->username,
+			'pass' 		=> $data_user->pass,
+			'id' 		=> $data_user->id,
+			'divisi'	=> $data_user->divisi
+			);
+
+			$this->session->set_userdata($datana);
+
+			header('Location: /dashboard');
+			exit();
+
+		} else {
+			header('Location: /');
+			exit();
+		}
+
+		
+	}
+
 	public function logout()
 	{
 		redirect('/login', 'location', 302);
@@ -94,11 +123,25 @@ class Works extends CI_Controller {
 			'code_json' => $c
 		);
 
+		// delete duplicates formulir
+		$dataF = $this->DBFormulir->getSpecificBy('name', $n);
+		if($dataF != false){
+			$idna = $dataF->id;
+			$this->delete_form($idna, $n);
+		}
+
 		$result = $this->DBFormulir->insert($data);
 
 		$this->create_new_form($n, $c);
 
 		echo $result;
+	}
+
+	private function delete_form($idna, $namena){
+
+		$this->DBFormulir->delete($idna);
+		$this->DBDynamic->drop_table($namena);
+
 	}
 	
 	private function create_new_form($tableName, $datajson){
@@ -175,6 +218,16 @@ class Works extends CI_Controller {
 		$result = $this->DBUser->delete($id);
 
 		echo $result;
+
+	}
+
+	public function update_settings(){
+	  $hasil =	$this->update_user();
+
+	  
+	  	header('Location: /dashboard');
+	  	exit();
+	
 
 	}
 

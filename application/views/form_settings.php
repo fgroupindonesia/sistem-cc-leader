@@ -1,7 +1,6 @@
 <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assets/css/style-dashboard.css">
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-<script src="/assets/js/dashboard.js" type="text/javascript" ></script>
 
 <div class="app-container">
   <div class="sidebar">
@@ -25,22 +24,19 @@
   </div>
   <div class="app-content">
    <?php if(isset($data_user)): ?> 
-    <h2 class="text-putih" >User Edit</h2>
+    <h2 class="text-putih" >Settings</h2>
       <?php else: ?>
-       <h2 class="text-putih" >User Baru</h2>
+       <h2 class="text-putih" >Settings</h2>
     <?php endif; ?>
  <div class="formulir-baru">
      
     <div>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<?php if(isset($data_user)): ?>
-<form id="form-user" action="/update-user" method="POST" >
-  <input type="hidden" name="id" value="<?= $data_user->id; ?>" >
-<?php else: ?>
-<form id="form-user" action="/insert-user" method="POST" >
-<?php endif; ?>  
+
+<form id="form-user" action="/update-settings" method="POST" >
   <div class="form-group row">
+    <input type="hidden" name="id" value="<?= $data_user->id ;?>" >
     <label for="text1" class="col-4 col-form-label">Full Name</label> 
     <div class="col-8">
       <input id="text1" name="fullname" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->fullname : ''; ?>">
@@ -61,13 +57,13 @@
   <div class="form-group row">
     <label for="text4" class="col-4 col-form-label">Divisi Bagian</label> 
     <div class="col-8">
-      <select name="divisi" >
+     
+      <select name="divisi" disabled >
         <option <?=$div_it;?> value="IT">IT</option>
         <option <?=$div_doc;?> value="Document Control">Doc.Control</option>
         <option <?=$div_lead;?> value="Leader">Leader</option>
       </select>
 
-     
     </div>
   </div> 
   <div class="form-group row">
@@ -95,4 +91,4 @@
 <script src="/assets/js/jquery371.min.js"></script>
   <script src="/assets/js/jquery-ui.min.js"></script>
   
-  <script src="/assets/js/custom-actions.js"> </script>
+  

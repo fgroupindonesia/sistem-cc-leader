@@ -182,7 +182,42 @@ class DBUser extends CI_Model {
         return false;
 
     }
+
+    public function getSpecificBy($col, $value){
+
+        $data = array(
+            $col => $value
+        );
+
+        // periksa apakah user dengan id ini ada di table?
+       
+        $this->db->where($data);
+        $query = $this->db->get($this->table_name);
+
+       if ($query->num_rows() > 0) {
+            return $query->row(); // return only a row
+        } 
+        
+        return false;
+
+    }
+
+
 	
+    public function getAllLimitBy($numeric) {
+        
+        $this->db->limit($numeric);
+
+        $query = $this->db->get($this->table_name);
+        
+         if ($query->num_rows() > 0) {
+            return $query->result(); // Returns an array of objects representing the result set
+        } else {
+            return false;
+        }
+        
+    }
+
 	public function getAll() {
         $query = $this->db->get($this->table_name);
 		

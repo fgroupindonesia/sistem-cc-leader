@@ -1,7 +1,7 @@
 <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assets/css/style-dashboard.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/style-management.css">
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-<script src="/assets/js/dashboard.js" type="text/javascript" ></script>
 
 <link rel="stylesheet" href="/assets/css/dataTables.dataTables.css" />
 
@@ -71,7 +71,10 @@
        <td> <input id="<?=$data->id;?>" type="checkbox"> #<?= $no; ?> </td>
        <td> <?= $data->fullname; ?> </td>
        <td> <?= $data->username; ?> </td>
-       <td> <a href="#" id="show-pass-link">Show</a> </td>
+       <td> <a href="#" class="show-pass-link" data-real="<?= $data->pass; ?>">Show</a>
+       <a data-real="<?= $data->pass; ?>" href="" class="copas">
+        <img src="/assets/images/paste.png">
+       </a> </td>
        <td> <?= $data->no_hp; ?> </td>
        <td> <?= $data->email; ?> </td>
        <td> <?= $data->divisi; ?> </td>
@@ -89,5 +92,6 @@
 <script src="/assets/js/jquery371.min.js"></script>
   <script src="/assets/js/jquery-ui.min.js"></script>
 
+<script src="/assets/js/dashboard.js" type="text/javascript" ></script>
 <script src="/assets/js/dataTables.js"></script>
 <script src="/assets/js/management.js"></script>

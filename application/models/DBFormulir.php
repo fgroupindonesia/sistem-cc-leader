@@ -99,6 +99,37 @@ class DBFormulir extends CI_Model {
 
     }
 	
+	public function getAllLimitBy($numeric) {
+        
+        $this->db->limit($numeric);
+
+        $query = $this->db->get($this->table_name);
+        
+         if ($query->num_rows() > 0) {
+            return $query->result(); // Returns an array of objects representing the result set
+        } else {
+            return false;
+        }
+        
+    }
+
+
+	public function getAllLimitSortBy($numeric, $descAsc) {
+        
+        $this->db->limit($numeric);
+        $this->db->order_by('id', $descAsc);
+
+        $query = $this->db->get($this->table_name);
+        
+         if ($query->num_rows() > 0) {
+            return $query->result(); // Returns an array of objects representing the result set
+        } else {
+            return false;
+        }
+        
+    }
+
+
 	public function getAll() {
         $query = $this->db->get($this->table_name);
 		

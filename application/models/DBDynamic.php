@@ -19,6 +19,24 @@ class DBDynamic extends CI_Model {
 	return $this->table_name;
 	}
 
+	public function drop_table($namaTable){
+		$tableName = str_replace(" ", "_", $namaTable);
+		$tableName = strtolower($tableName);
+
+		if(strpos($tableName, 'table_') !== true){
+			$tableName = "table_" . $tableName;
+		}
+
+		$sqlDROP = "DROP TABLE " . $tableName;
+
+		if ($this->db->query($sqlDROP)) {
+            return true;
+        }
+
+        return false;
+
+	}
+
 	public function create_new_table($namaTable, $codejson){
 		$tableName = str_replace(" ", "_", $namaTable);
 		$tableName = strtolower($tableName);

@@ -20,10 +20,10 @@
 			</div>
 
 			<div class="login">
-				<form action="/dashboard" method="post"> 
+				<form action="/verify" method="post"> 
 					<label for="chk" aria-hidden="true">Login</label>
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
+	<input type="text" name="username" placeholder="Username" required="">
+	<input type="password" name="pass" placeholder="Password" required="">
 					<button>Login</button>
 				</form>
 			</div>
