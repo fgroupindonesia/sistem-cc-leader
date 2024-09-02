@@ -107,16 +107,32 @@ table {
 	margin: 10px;
 }
 
-#clear-all-link:hover, #convert-to-excel:hover, #switch-display:hover {
+#clear-all-link:hover, #convert-to-pdf:hover, #convert-to-excel:hover, #switch-display:hover {
 	cursor: pointer;
 	background-color: yellow;
 	border-radius: 15px;
 	color: red !important;
 }
 
-#clear-all-link, #convert-to-excel, #switch-display{
+#clear-all-link, #convert-to-excel, #convert-to-pdf, #switch-display{
 	
 	display: inline-block;
 	text-align: center;
 }
 
+#table-container {
+	padding: 10px;
+}
+
+#table-container .title {
+	text-align: center;
+}
+
+#table-container h3{
+	background-color: black;
+	display: block;
+	width: 300px;
+	border-radius: 5px;
+	color: white;
+	margin: auto;
+}

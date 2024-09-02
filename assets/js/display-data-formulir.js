@@ -3,6 +3,8 @@ const URL_DELETE_ALL_FORM = "/delete-all-data-formulir";
 $(document).ready( function () {
     $('#table-data').DataTable();
 
+
+    // this is for toggling the detail of the data submitted
     $('#switch-display').on('click', function(){
 
        
@@ -10,6 +12,22 @@ $(document).ready( function () {
         $('#split-main').toggleClass('display');
         $('#split-main').toggleClass('hidden');
         
+    });
+
+    // this is for pdf generator
+    $('#convert-to-pdf').on('click', function(){
+
+        let el = $('#table-container');
+     
+        html2PDF(el, {
+            jsPDF: {
+              format: 'a4',
+            },
+            imageType: 'image/jpeg',
+            output: './pdf/generate.pdf'
+          });
+      
+
     });
 
     $('.item-menu').on('click', function(){
@@ -23,7 +41,7 @@ $(document).ready( function () {
         let tglna = $(this).data('date-created');
         const updatedJson = replaceUnderscoreWithDash(JSON.parse(datana));
 
-        alert(tglna);
+        //alert(tglna);
 
         // render it into the form
         previewForm(updatedJson, tglna);
@@ -60,6 +78,7 @@ $(document).ready( function () {
     }
 
 });
+
 
 function replaceUnderscoreWithDash(obj) {
     if (Array.isArray(obj)) {

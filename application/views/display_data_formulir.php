@@ -39,6 +39,11 @@
       <span  > Convert Excel </span>
     </div>
 
+    <div id="convert-to-pdf"  class="text-white col-md-1 clear-all-container"> 
+      <img id="convert-pdf-image" src="/assets/images/pdf.png"> <br>
+      <span  > Convert PDF </span>
+    </div>
+
      <div id="switch-display"  class="text-white col-md-1 clear-all-container"> 
       <img  src="/assets/images/reload.png"> <br>
       <span  > Switch Display </span>
@@ -73,7 +78,7 @@
  </ul>
  </div>
 
- <div class="col-md-8">
+ <div class="col-md-8" id="form-container">
     <textarea id="hidden-code">
         <?= $code_json; ?>
     </textarea>
@@ -88,6 +93,11 @@
 <!-- split container area ended -->
 
   <div id="table-container" class="hidden">
+
+    <div class="row title">
+    <h3 class="col-md-5"><?= $form_name; ?></h3>
+  </div>
+
     <table id="table-data" class="display">
     <?php if(isset($data_all)): ?>
       <thead>
@@ -129,6 +139,10 @@
   <script src="/assets/js/jquery-ui.min.js"></script>
   <script src="/assets/js/form-builder.min.js"></script>
 <script src="/assets/js/form-render.min.js"></script>
+
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-html2canvas@latest/dist/jspdf-html2canvas.min.js"></script>
 
 <script src="/assets/js/dataTables.js"></script>
 <script src="/assets/js/display-formulir.js"></script>
