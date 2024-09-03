@@ -41,6 +41,9 @@ function renderFormEditable(element){
   setTimeout(function(){
     formBuilder.actions.setData(formData);
     alert('Warning all data will be erased once changed!');
+  
+     $('#fb-editor > div > div:last > ul').hide();
+
   },1500);
 
   console.log('testing');

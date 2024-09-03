@@ -18,6 +18,14 @@ $(document).ready( function () {
     $('#convert-to-pdf').on('click', function(){
 
         let el = $('#table-container');
+
+        let displayStat = $('#table-container h3').css('display');
+
+        if(displayStat == 'none'){
+            $('#table-container h3').css('display', 'block');            
+        }else{
+            $('#table-container h3').css('display', 'none');            
+        }
      
         html2PDF(el, {
             jsPDF: {
@@ -26,6 +34,8 @@ $(document).ready( function () {
             imageType: 'image/jpeg',
             output: './pdf/generate.pdf'
           });
+
+        $('#table-container h3').css('display', 'none');            
       
 
     });
@@ -96,14 +106,25 @@ function replaceUnderscoreWithDash(obj) {
 
 function previewForm(jsonIn, tgl){
 
-    $('#date-created').text('Taken at : ' + tgl);
+    $('#date-created').text('Taken at : ' + tgl + '.');
+     $('#username').text('Filled by : ' + jsonIn.username+'.');
 
     //console.table(jsonIn);
 
     $.each(jsonIn, function(key, value) {
       let name = '#' + key;
       //console.log('ada ' + name + '\n');
-      $(name).val(value);
+
+
+        //alert('ditemui ' +name);
+      if(!name.includes('radio')){  
+        $(name).val(value);
+               
+      }else{
+       
+        $('input[type="radio"][value="' + value + '"]').prop('checked', true);
+        
+      }
 
     });
 

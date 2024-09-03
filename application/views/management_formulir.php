@@ -93,4 +93,5 @@
 <script src="/assets/js/dataTables.js"></script>
 <script src="/assets/js/management.js"></script>
 
-<script src="/assets/js/dashboard.js" type="text/javascript" ></script>
+<script src="/assets/js/js.cookie.min.js"></script>
+<script src="/assets/js/dashboard.js"></script>

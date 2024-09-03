@@ -44,7 +44,7 @@ hr {
 }
 
 .sidebar {
-  max-width: 225px;
+  max-width: 230px;
 }
 
 .text-left {
@@ -785,4 +785,25 @@ body {
   }
   
   .cell-label { opacity: 0.6; }
+}
+
+#sidebar-control{
+  color: white;
+  width: 100%;
+  text-align: right;
+  display: block;
+}
+
+#sidebar-control span:hover {
+  cursor: pointer;
+  background-color: grey;
+
+}
+
+.closed-sidebar{
+  max-width: 30px !important;
+}
+
+.sidebar-header:hover{
+  cursor:pointer;
 }

@@ -58,6 +58,12 @@
       <input id="text3" name="pass" type="password" class="form-control" value="<?= $a = isset($data_user)? $data_user->pass : ''; ?>">
     </div>
   </div>
+   <div class="form-group row">
+    <label for="text9" class="col-4 col-form-label">Gedung</label> 
+    <div class="col-8">
+      <input id="text9" name="gedung" type="number" class="form-control" value="<?= $a = isset($data_user)? $data_user->gedung : '0'; ?>">
+    </div>
+  </div>
   <div class="form-group row">
     <label for="text4" class="col-4 col-form-label">Divisi Bagian</label> 
     <div class="col-8">
@@ -94,5 +100,6 @@
 
 <script src="/assets/js/jquery371.min.js"></script>
   <script src="/assets/js/jquery-ui.min.js"></script>
-  
   <script src="/assets/js/custom-actions.js"> </script>
+  <script src="/assets/js/js.cookie.min.js"></script>
+<script src="/assets/js/dashboard.js"></script>

@@ -24,8 +24,7 @@
   </div>
   <div class="app-content">
  <h2 class="text-putih" >Submitted Data </h2>
- <h4 class="text-putih">Formulir: <?= $form_name; ?></h4>
-
+ 
  <div class="row justify-content-start">
     
       <?php if($user_divisi == "IT"): ?>
@@ -34,9 +33,17 @@
       <span  data-form="<?= $form_name ;?>" >Clear All</span>
     </div>
 
-    <div id="convert-to-excel"  class="text-white col-md-1 clear-all-container"> 
+    <?php endif; ?>
+
+    <div id="convert-to-excel" data-form="<?= $form_name ;?>" class="text-white col-md-1 clear-all-container"> 
       <img id="convert-excel-image" src="/assets/images/excel.png"> <br>
       <span  > Convert Excel </span>
+    </div>
+
+    <div id="excel-menu" class="floating-menu" style="display:none;">
+      <a id="excel-csv">CSV format</a> 
+      <a id="excel-xlsx">XLSX format</a>
+      <a id="excel-cancel">Cancel</a>
     </div>
 
     <div id="convert-to-pdf"  class="text-white col-md-1 clear-all-container"> 
@@ -49,12 +56,16 @@
       <span  > Switch Display </span>
     </div>
 
-    <?php endif; ?>
 
+  </div>
+
+  <div class="row">
+    <h3 class="col"><?= $form_name; ?></h3>  
   </div>
  
  <!-- split container area -->
- <div class="row display" id="split-main">  
+ <div class="row display" id="split-main">
+
  <div  class="col-md-3" id="split-container" >
   <ul class="box-side">
 
@@ -63,12 +74,14 @@
          <?php $dataBaru = (array) $val; $tempData = array(); // for json storing?>
          <li class="item-menu" data-date-created="<?=$dataBaru['date_created'];?>">
           <input type="checkbox" value="<?=$dataBaru['id'];?>" > 
-        <?php $post = 0; $colNeeded1 = 1; $colNeeded2 = sizeof($dataBaru)-1 ; ?>  
+        <?php $post = 0; $jawabUrut = 1; $colNeeded1 = 1; $colNeeded2 = sizeof($dataBaru)-1 ; ?>  
         
         <?php foreach($dataBaru as $data_in => $value): ?>
-          <?php if(($post == $colNeeded1) || ($post == $colNeeded2)): ?>
-                  <span class="item-list"><?= $value; ?> </span>
-          <?php endif; $post++; $tempData[] = $value; ?>
+          <?php if(($post == $colNeeded1)): ?>
+          <span class="item-list"><?= "jawaban : " . $jawabUrut; ?> </span>
+           <?php elseif(($post == $colNeeded2)): ?>
+          <span class="item-list"><?= $value; ?> </span>
+          <?php endif; $post++; $jawabUrut++; $tempData[] = $value; ?>
         <?php endforeach; ?>
             <pre class="json-form-data"><?=json_encode($dataBaru);?> </pre>
 
@@ -83,7 +96,12 @@
         <?= $code_json; ?>
     </textarea>
 
-    <span id="date-created"> </span>
+    <div id="form-info">
+    <span id="date-created">Taken at : </span> <br>
+    <span id="username">Filled by :</span>
+    <hr>
+    </div>
+
     <div id="form-render">
 
     </div>
@@ -95,7 +113,7 @@
   <div id="table-container" class="hidden">
 
     <div class="row title">
-    <h3 class="col-md-5"><?= $form_name; ?></h3>
+    <h3 class="col-md-5" style="display:none;"><?= $form_name; ?></h3>
   </div>
 
     <table id="table-data" class="display">
@@ -148,3 +166,5 @@
 <script src="/assets/js/display-formulir.js"></script>
 <script src="/assets/js/display-data-formulir.js"></script>
 <script src="/assets/js/convert-excel.js"></script>
+<script src="/assets/js/js.cookie.min.js"></script>
+<script src="/assets/js/dashboard.js"></script>

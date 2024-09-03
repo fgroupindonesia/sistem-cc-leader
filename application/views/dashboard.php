@@ -166,5 +166,6 @@
 
 
 <script src="/assets/js/jquery371.min.js"></script>
-  <script src="/assets/js/jquery-ui.min.js"></script>
-  <script src="/assets/js/dashboard.js" type="text/javascript" ></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/js.cookie.min.js"></script>
+<script src="/assets/js/dashboard.js"></script>

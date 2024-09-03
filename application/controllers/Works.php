@@ -8,6 +8,91 @@ class Works extends CI_Controller {
 		$this->load->model('DBFormulir');
 		$this->load->model('DBDynamic');
 		$this->load->model('DBUser');
+
+
+	}
+
+	public function test(){
+		
+		$this->export_to_excel();
+
+	}
+
+	public function convertDataIntoStringList($arrayNa){
+
+
+
+	}
+
+	public function export_to_excel(){
+
+
+		// we got the table name first
+		$name = $this->input->post('name');
+
+
+		$namaFormulir = "Formulir :" . $name;
+		$generatedDate = "Data Report : " . date('d-m-Y h:i:s');
+
+		$blank = "";
+
+		$this->DBDynamic->update_table_name($name);
+		$data_all =  $this->DBDynamic->getAll();
+
+		if($data_all == false){
+			$data_all = array();
+		}else{
+
+			// when we found a data
+
+		}
+
+		$data = array(
+    		array($namaFormulir),
+    		array($generatedDate),
+    		array($blank)
+		);
+
+		// because this library
+		// just need a string for each lins
+		// thus the object inside the array 
+		// of result set transformed into string line by line
+
+		//	echo var_dump($data_all);
+			foreach($data_all as $n){
+				$row = array();
+				foreach($n as $x){
+					$row[] = $x;
+				}
+				$data[] = $row;
+			}
+
+		$writer = new XLSXWriter();
+		$writer->writeSheet($data);
+		$writer->writeToFile('reports/output.xlsx');
+
+
+	}
+
+	public function download_excel(){
+
+		$yourFile = 'reports/output.xlsx';
+
+		$file = @fopen($yourFile, "rb");
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=output.xlsx');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($yourFile));
+        while (!feof($file)) {
+            print(@fread($file, 1024 * 8));
+            ob_flush();
+            flush();
+        }
+
 	}
 
 	public function verify_login(){
@@ -46,7 +131,9 @@ class Works extends CI_Controller {
 
 	public function add_data_formulir(){
 
+
 		$tableName = $this->input->post('target-form');
+		$u 		= $this->input->post('username');
 
 		$this->DBDynamic->update_table_name($tableName);
 
@@ -71,6 +158,7 @@ class Works extends CI_Controller {
 			}
 		}
 
+		$finalData['username']	= $u;
 		$this->DBDynamic->insert($finalData);
 
 		header('location:/success');
@@ -87,9 +175,16 @@ class Works extends CI_Controller {
 		
 	}
 
+	public function getSession($key){
+
+		return $this->session->userdata($key);
+
+	}
+
 	// used as user sharing input
 	public function input_data_formulir(){
 
+		$u = $this->getSession('username');
 		$name = $this->input->get('name');
 		$nameWSpaces = str_replace("_", " ", $name);
 
@@ -102,7 +197,8 @@ class Works extends CI_Controller {
 		$data = array(
 			'content' => $formContent,
 			'status' => 'input',
-			'fname' => $name
+			'fname' => $name,
+			'username' => $u
 		);
 
 		$this->load->view('display_formulir', $data);
@@ -195,6 +291,7 @@ class Works extends CI_Controller {
 		$nhp = $this->input->post('no_hp');
 		$e = $this->input->post('email');
 		$d = $this->input->post('divisi');
+		$g = $this->input->post('gedung');
 
 		$data = array(
 			'fullname' => $f,
@@ -202,7 +299,8 @@ class Works extends CI_Controller {
 			'pass' => $p,
 			'no_hp' => $nhp,
 			'email' => $e,
-			'divisi' => $d
+			'divisi' => $d,
+			'gedung' => $g
 		);
 
 		$result = $this->DBUser->insert($data);
@@ -241,6 +339,7 @@ class Works extends CI_Controller {
 		$nhp = $this->input->post('no_hp');
 		$e = $this->input->post('email');
 		$d = $this->input->post('divisi');
+		$g = $this->input->post('gedung');
 
 		$data = array(
 			'id' => $id,
@@ -249,6 +348,7 @@ class Works extends CI_Controller {
 			'pass' => $p,
 			'no_hp' => $nhp,
 			'email' => $e,
+			'gedung' => $g,
 			'divisi' => $d
 		);
 

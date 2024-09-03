@@ -55,6 +55,12 @@
     </div>
   </div>
   <div class="form-group row">
+    <label for="text9" class="col-4 col-form-label">Gedung</label> 
+    <div class="col-8">
+      <input id="text9" name="gedung" type="number" class="form-control" value="<?= $a = isset($data_user)? $data_user->gedung : '0'; ?>">
+    </div>
+  </div>
+  <div class="form-group row">
     <label for="text4" class="col-4 col-form-label">Divisi Bagian</label> 
     <div class="col-8">
      

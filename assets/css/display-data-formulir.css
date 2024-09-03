@@ -3,10 +3,23 @@
 	display: none;
 }
 
-
+#form-info{
+	color: white;
+}
 
 .json-form-data {
 	display: none;
+}
+
+#excel-menu a:hover {
+	background-color: orange;
+	cursor: pointer;
+
+}
+
+#excel-menu a{
+	width: 100%;
+	display: block;
 }
 
 #split-container {

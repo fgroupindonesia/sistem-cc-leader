@@ -27,3 +27,6 @@ $route['delete-user'] = 'Works/delete_user';
 $route['verify'] = 'Works/verify_login';
 $route['settings'] = 'Display/settings';
 $route['update-settings'] = 'Works/update_settings';
+$route['test'] = 'Works/test';
+$route['download-excel'] = 'Works/download_excel';
+$route['export-to-excel'] = 'Works/export_to_excel';

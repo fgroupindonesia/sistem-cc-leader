@@ -29,6 +29,7 @@
   <form action="/add-new-data-formulir" method="post">  
     <?php if(isset($status)): ?>
       <?php if($status == 'input') : ?>
+    <input type="hidden" value=<?= $username; ?> name="username">    
     <input type="hidden" value="<?= $fname; ?>" name="target-form" >
       <?php endif; ?>
     <?php endif; ?>
@@ -54,3 +55,5 @@
   <script src="/assets/js/form-builder.min.js"></script>
 <script src="/assets/js/form-render.min.js"></script>
 <script src="/assets/js/display-formulir.js"></script>
+<script src="/assets/js/js.cookie.min.js"></script>
+<script src="/assets/js/dashboard.js"></script>

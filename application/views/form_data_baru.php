@@ -51,3 +51,5 @@
   <?php if(isset($status)): ?>
   <script src="/assets/js/display-formulir.js"> </script>
   <?php endif; ?>
+<script src="/assets/js/js.cookie.min.js"></script>
+<script src="/assets/js/dashboard.js"></script>
