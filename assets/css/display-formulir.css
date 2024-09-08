@@ -1,4 +1,6 @@
 
+
+
 .btn-default {
 	background-color: orange;
 	border-radius: 5px;
@@ -20,7 +22,7 @@
 
 }
 
-.formbuilder-radio input {
+.formbuilder-radio input[type='radio'] {
 	width: 30px !important;
 }
 
@@ -29,7 +31,7 @@
 	overflow-y: auto;
 }
 
-
-
-
+.other-val {
+	width: 200px !important;
+}
 

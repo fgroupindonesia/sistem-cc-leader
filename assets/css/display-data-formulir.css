@@ -1,4 +1,13 @@
 
+.app-content {
+	overflow-x: scroll;
+}
+
+#split-main {
+	overflow-y: scroll;
+}
+
+
 #hidden-code {
 	display: none;
 }

@@ -24,8 +24,27 @@ class Works extends CI_Controller {
 
 	}
 
-	public function export_to_excel(){
 
+	private function extractLabelOnly($data1){
+		
+		$dataArray = json_decode($data1->code_json, true);
+
+		// Initialize an array to hold the label values
+		$labels = [];
+
+		// Iterate through the array and collect label values
+		foreach ($dataArray as $item) {
+		    if (isset($item['label'])) {
+		        $labels[] = $item['label'];
+		    }
+		}
+
+		return $labels;
+
+	}
+
+
+	public function export_to_excel(){
 
 		// we got the table name first
 		$name = $this->input->post('name');
@@ -33,6 +52,10 @@ class Works extends CI_Controller {
 
 		$namaFormulir = "Formulir :" . $name;
 		$generatedDate = "Data Report : " . date('d-m-Y h:i:s');
+
+	$datana = $this->DBFormulir->getSpecificBy('name', $name);
+		$namaKolom = $this->extractLabelOnly($datana);
+
 
 		$blank = "";
 
@@ -53,6 +76,14 @@ class Works extends CI_Controller {
     		array($blank)
 		);
 
+
+		// We add name for each column manually
+		array_unshift($namaKolom, 'No.');
+		$namaKolom[] = "Username";
+		$namaKolom[] = "Date Created";
+
+		$data[] = ($namaKolom);
+
 		// because this library
 		// just need a string for each lins
 		// thus the object inside the array 
@@ -66,6 +97,8 @@ class Works extends CI_Controller {
 				}
 				$data[] = $row;
 			}
+
+
 
 		$writer = new XLSXWriter();
 		$writer->writeSheet($data);
@@ -100,7 +133,11 @@ class Works extends CI_Controller {
 		$u = $this->input->post('username');
 		$p = $this->input->post('pass');
 
-		$data_user = $this->DBUser->getSpecificBy('username', $u);
+$dataArray = array('username'=> $u, 'pass'=>$p);
+
+$data_user = $this->DBUser->getSpecificByFilter($dataArray);
+
+//echo var_dump($data_user);
 
 		if($data_user != false){
 

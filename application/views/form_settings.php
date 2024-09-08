@@ -57,14 +57,15 @@
   <div class="form-group row">
     <label for="text9" class="col-4 col-form-label">Gedung</label> 
     <div class="col-8">
-      <input id="text9" name="gedung" type="number" class="form-control" value="<?= $a = isset($data_user)? $data_user->gedung : '0'; ?>">
+      <input id="text9" name="gedung" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->gedung : '0'; ?>">
     </div>
   </div>
   <div class="form-group row">
     <label for="text4" class="col-4 col-form-label">Divisi Bagian</label> 
     <div class="col-8">
      
-      <select name="divisi" disabled >
+      <select name="divisi"  >
+        <option <?=$div_none;?> value="none"> </option>
         <option <?=$div_it;?> value="IT">IT</option>
         <option <?=$div_doc;?> value="Document Control">Doc.Control</option>
         <option <?=$div_lead;?> value="Leader">Leader</option>

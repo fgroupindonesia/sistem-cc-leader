@@ -25,6 +25,7 @@ class Display extends CI_Controller {
 		$div_it 	= "";
 		$div_doc 	= "";
 		$div_lead 	=  "";
+		$div_none 	=  "";
 
 		if($data->divisi == "IT"){
 			$div_it = "selected";
@@ -32,10 +33,13 @@ class Display extends CI_Controller {
 			$div_doc = "selected";
 		}else if($data->divisi == "Leader"){
 			$div_lead = "selected";
+		}else {
+			$div_none = "selected";
 		}
 
 		$datana = array(
 			'data_user' => $data,
+			'div_none'	=> $div_none,
 			'div_it' 	=> $div_it,
 			'div_doc' 	=> $div_doc,
 			'div_lead'	=> $div_lead

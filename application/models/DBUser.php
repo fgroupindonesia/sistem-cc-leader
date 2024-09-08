@@ -202,6 +202,20 @@ class DBUser extends CI_Model {
 
     }
 
+    public function getSpecificByFilter($arrayIn){
+
+       
+        $this->db->where($arrayIn);
+        $query = $this->db->get($this->table_name);
+
+       if ($query->num_rows() > 0) {
+            return $query->row(); // return only a row
+        } 
+        
+        return false;
+
+    }
+
 
 	
     public function getAllLimitBy($numeric) {
