@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'session', 'indonesian_calendar', 'counter', 'akses', 'barcode', 'pdf_maker', 'XLSXWriter');
+$autoload['libraries'] = array('database', 'session', 'indonesian_calendar', 'counter', 'akses', 'barcode', 'pdf_maker', 'XLSXWriter', 'TXTFormatter');
 
 /*
 | -------------------------------------------------------------------

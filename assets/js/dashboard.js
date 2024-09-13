@@ -24,23 +24,15 @@ function makeToggleSidebar(){
     if(skrg == 'open'){
       
       openSidebar(false);
+      
+    }else{
+      openSidebar(true);      
 
     }
 
   });
 
-  $('.sidebar-header').on('click', function(){
-
-    let skrg = $(this).data('current');
-
-    if(skrg != 'open'){
-
-      openSidebar(true);
-
-      }
-    
-
-  });
+ 
 
   // toggle automatic
   if(getCookieSidebar()=='open'){
@@ -60,16 +52,17 @@ function openSidebar(val){
       $('#sidebar-control span').data('current', 'open');
       $('#sidebar-control').css('text-align', 'right');
 
-
+      $('#sidebar-control span').text('<<');
       saveCookieSidebar('open');
 
   } else {
 
 
     $('.sidebar').addClass('closed-sidebar');
-      $(this).data('current', 'closed');
+      $('#sidebar-control span').data('current', 'closed');
       $('#sidebar-control').css('text-align', 'left');
 
+      $('#sidebar-control span').text('>>');
       saveCookieSidebar('closed');
 
   }

@@ -46,10 +46,12 @@
       <a id="excel-cancel">Cancel</a>
     </div>
 
+    <?php if($user_divisi == 'IT'): ?>
     <div id="convert-to-pdf"  class="text-white col-md-1 clear-all-container"> 
       <img id="convert-pdf-image" src="/assets/images/pdf.png"> <br>
       <span  > Convert PDF </span>
     </div>
+    <?php endif; ?>
 
      <div id="switch-display"  class="text-white col-md-1 clear-all-container"> 
       <img  src="/assets/images/reload.png"> <br>
@@ -121,13 +123,15 @@
       <thead>
         <tr>
            <th>ID</th>
+             <th>Gedung</th>
+            <th>Username</th>
+             <th>Date Created</th>
             <?php if(isset($data_header)): ?>
               <?php foreach($data_header as $data_judul => $v): ?>
                 <th><?= $v;?></th>
               <?php endforeach; ?>
             <?php endif; ?>
-            <th>Username</th>
-             <th>Date Created</th>
+           
         </tr>
       </thead>
       <tbody>

@@ -1,3 +1,4 @@
+<?php $locked = ''; ?>
 <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assets/css/style-dashboard.css">
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
@@ -24,14 +25,22 @@
     </div>
   </div>
   <div class="app-content">
-    <?php if(!isset($status)): ?>
- <h2 class="text-putih" >Formulir Baru</h2>
+    <?php if($status == "new"): ?>
+ <h2 id="form-type" class="text-putih" >Formulir Baru</h2>
 <?php elseif($status == "edit"): ?>
-   <h2 class="text-putih" >Formulir Edit</h2>
-  <?php endif; ?>
+   <h2 id="form-type" class="text-putih" >Formulir Edit</h2>
+   <?php $locked = 'readonly'; ?>
+<?php endif; ?>
 
  <label>Nama : </label> 
- <input id="nama-formulir" type="text" value="<?=$name;?>" placeholder="nama formulir" name="nama" >
+ <input id="nama-formulir" <?=$locked;?> type="text" value="<?=$name;?>" placeholder="nama formulir" name="nama" >
+
+<input id="divisi" type="hidden" value="<?=$divisi;?>" name="divisi" />
+<input id="username" type="hidden" value="<?=$username;?>" name="username" />
+
+<?php if($status == "edit"): ?>
+<input id="id-form" type="hidden" value="<?=$id;?>" name="id" />
+<?php endif; ?>
 
 <textarea id="hidden-code-json"><?=$code_json;?>
 </textarea>
@@ -48,7 +57,7 @@
   <script src="/assets/js/form-builder.min.js"></script>
 <script src="/assets/js/form-render.min.js"></script>
   <script src="/assets/js/custom-actions.js"> </script>
-  <?php if(isset($status)): ?>
+  <?php if($status == "edit"): ?>
   <script src="/assets/js/display-formulir.js"> </script>
   <?php endif; ?>
 <script src="/assets/js/js.cookie.min.js"></script>

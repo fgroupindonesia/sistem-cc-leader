@@ -109,7 +109,8 @@ function previewForm(jsonIn, tgl){
     $('#date-created').text('Taken at : ' + tgl + '.');
      $('#username').text('Filled by : ' + jsonIn.username+'.');
 
-    //console.table(jsonIn);
+    console.table(jsonIn);
+    console.log('ada data\n'+ jsonIn);
 
     $.each(jsonIn, function(key, value) {
       let name = '#' + key;
@@ -119,10 +120,26 @@ function previewForm(jsonIn, tgl){
         //alert('ditemui ' +name);
       if(!name.includes('radio')){  
         $(name).val(value);
+
+        //console.log('processing A');
                
       }else{
        
-        $('input[type="radio"][value="' + value + '"]').prop('checked', true);
+       let elRadio = $('input[type="radio"][value="' + value + '"]');
+
+
+       if(elRadio.length > 0){
+        elRadio.prop('checked', true);
+        console.log('processing B1');
+       }else {
+        console.log('processing B2');
+            let elRadioOther = $('input[type="radio"][class=" other-option"][name="' + key + '"]');
+            elRadioOther.prop('checked', true);
+
+            // now filling the textbox
+            let nameTxt = '#' + key + '-other-value';
+            $(nameTxt).val(value);
+       }
         
       }
 

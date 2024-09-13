@@ -9,6 +9,7 @@ class Display extends CI_Controller {
 		$this->load->model('DBUser');
 		$this->load->model('DBFormulir');
 		$this->load->model('DBDynamic');
+		$this->load->model('DBHistoryFormulir');
 	}
 
 	public function getSession($key){
@@ -53,6 +54,8 @@ class Display extends CI_Controller {
 
 		$id = $this->input->get('id');
 
+		$gedung = $this->getSession('gedung');
+
 		$datana = $this->DBFormulir->getSpecific($id);
 		$formContent = null;
 
@@ -63,7 +66,8 @@ class Display extends CI_Controller {
 
 		$data = array(
 			'content' => $formContent,
-			'status' => 'demo'
+			'status' => 'demo',
+			'gedung' => $gedung
 		);
 
 		$this->load->view('display_formulir', $data);
@@ -138,9 +142,15 @@ class Display extends CI_Controller {
 
 	public function add_new_formulir(){
 
+		$divisi = $this->getSession('divisi');
+		$username = $this->getSession('username');
+
 		$datana = array(
 			'name' 		=> "",
-			'code_json' => ""
+			'code_json' => "",
+			'divisi'	=> $divisi,
+			'username'	=> $username,
+			'status'	=> "new"
 		);
 
 		$this->load->view('form_data_baru', $datana);
@@ -150,6 +160,8 @@ class Display extends CI_Controller {
 	public function edit_formulir(){
 
 		$id = $this->input->get('id');
+		$divisi = $this->getSession('divisi');
+		$username = $this->getSession('username');
 
  	$data = $this->DBFormulir->getSpecificBy('id', $id);
 
@@ -158,7 +170,9 @@ class Display extends CI_Controller {
  			'name' 		=> $data->name,
  			'code_json' => $data->code_json,
  			'status' 	=> 'edit',
- 			'id'		=> $id
+ 			'id'		=> $id,
+ 			'username'	=> $username,
+ 			'divisi'	=> $divisi
  		);
 
  	}
@@ -253,11 +267,13 @@ class Display extends CI_Controller {
 
 		$dataForm = $this->DBFormulir->getAllLimitSortBy(10, 'DESC');
 		$dataUser = $this->DBUser->getAllLimitBy(10);
+		$dataHistory = $this->DBHistoryFormulir->getAllLimitBy(10);
 
 		// if we have no data
 		// the end result will be false
 
 		$t_user = 0;
+		$t_hist = 0;
 		$t_form = 0;
 
 
@@ -267,13 +283,19 @@ class Display extends CI_Controller {
 			$t_user = count($dataUser);
 		}
 
+		if($dataHistory != false){
+			$t_hist = count($dataHistory);
+		}
+
 		if($dataForm != false){
 			$t_form = count($dataForm);
 		}
 
 		$datana = array(
-			'data_user' => $dataUser,
+			'data_history' => $dataHistory,
 			'data_form' => $dataForm,
+			'data_user' => $dataUser,
+			'total_hist' => $t_hist,
 			'total_user' => $t_user,
 			'total_form' => $t_form
 		);

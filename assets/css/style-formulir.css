@@ -17,3 +17,9 @@
 #hidden-code-json {
     display: none;
 }
+
+/* this is for the editing or creating form with several part
+that wasnt needed by the normal user */ 
+.className-wrap, .name-wrap, .access-wrap{
+    display: none !important;
+}

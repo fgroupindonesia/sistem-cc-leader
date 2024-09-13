@@ -8,7 +8,7 @@ class Works extends CI_Controller {
 		$this->load->model('DBFormulir');
 		$this->load->model('DBDynamic');
 		$this->load->model('DBUser');
-
+		$this->load->model('DBHistoryFormulir');
 
 	}
 
@@ -54,6 +54,9 @@ class Works extends CI_Controller {
 		$generatedDate = "Data Report : " . date('d-m-Y h:i:s');
 
 	$datana = $this->DBFormulir->getSpecificBy('name', $name);
+
+		$namaKolom = array();
+		
 		$namaKolom = $this->extractLabelOnly($datana);
 
 
@@ -78,9 +81,11 @@ class Works extends CI_Controller {
 
 
 		// We add name for each column manually
-		array_unshift($namaKolom, 'No.');
-		$namaKolom[] = "Username";
-		$namaKolom[] = "Date Created";
+		array_unshift($namaKolom, 'No.', 
+			'Gedung', 
+			'Username', 
+			'Date Created');
+		
 
 		$data[] = ($namaKolom);
 
@@ -145,7 +150,8 @@ $data_user = $this->DBUser->getSpecificByFilter($dataArray);
 			'username' 	=> $data_user->username,
 			'pass' 		=> $data_user->pass,
 			'id' 		=> $data_user->id,
-			'divisi'	=> $data_user->divisi
+			'divisi'	=> $data_user->divisi,
+			'gedung'	=> $data_user->gedung
 			);
 
 			$this->session->set_userdata($datana);
@@ -171,6 +177,7 @@ $data_user = $this->DBUser->getSpecificByFilter($dataArray);
 
 		$tableName = $this->input->post('target-form');
 		$u 		= $this->input->post('username');
+		$gedung	= $this->input->post('gedung');
 
 		$this->DBDynamic->update_table_name($tableName);
 
@@ -195,6 +202,7 @@ $data_user = $this->DBUser->getSpecificByFilter($dataArray);
 			}
 		}
 
+		$finalData['gedung']	= $gedung;
 		$finalData['username']	= $u;
 		$this->DBDynamic->insert($finalData);
 
@@ -222,6 +230,7 @@ $data_user = $this->DBUser->getSpecificByFilter($dataArray);
 	public function input_data_formulir(){
 
 		$u = $this->getSession('username');
+		$gedung = $this->getSession('gedung');
 		$name = $this->input->get('name');
 		$nameWSpaces = str_replace("_", " ", $name);
 
@@ -235,7 +244,8 @@ $data_user = $this->DBUser->getSpecificByFilter($dataArray);
 			'content' => $formContent,
 			'status' => 'input',
 			'fname' => $name,
-			'username' => $u
+			'username' => $u,
+			'gedung' => $gedung
 		);
 
 		$this->load->view('display_formulir', $data);
@@ -319,6 +329,29 @@ $data_user = $this->DBUser->getSpecificByFilter($dataArray);
 
 	}
 
+	public function add_history_formulir(){
+
+
+		$u 			= $this->input->post('username');
+		$dbefore 	= $this->input->post('data_before');
+		$dafter 	= $this->input->post('data_after');
+		$fname 		= $this->input->post('formulir_name');
+
+		$data = array(
+			'username' 		=> $u,
+			'data_before'	=> $dbefore,
+			'data_after'	=> $dafter,
+			'formulir_name'	=> $fname
+		);
+
+		$result = $this->DBHistoryFormulir->insert($data);
+
+		echo $result;
+
+
+	}
+
+
 	public function add_user()
 	{
 
@@ -366,6 +399,8 @@ $data_user = $this->DBUser->getSpecificByFilter($dataArray);
 
 	}
 
+
+
 	public function update_user()
 	{
 
@@ -397,7 +432,18 @@ $data_user = $this->DBUser->getSpecificByFilter($dataArray);
 	public function update_formulir()
 	{
 
-		
+		$id = $this->input->post('id');
+		$n = $this->input->post('name');
+		$c = $this->input->post('code_json');
+
+		$data = array(
+			'name' => $n,
+			'code_json' => $c
+		);
+
+		$result = $this->DBFormulir->update($data, $id);
+
+		echo $result;
 
 	}
 

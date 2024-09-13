@@ -69,9 +69,11 @@
     <?php if(!empty($data_formulir)): ?>
       <?php $no = 0; $safeName = ""; ?>
     <?php foreach($data_formulir as $data): ?>
-      <?php $no++;  $safeName = str_replace(" ", "_", $data->name); ?>
+      <?php $no++;  $safeName = str_replace(" ", "_", $data->name); 
+        $fno = $this->txtformatter->generate2Digit($no);
+      ?>
      <tr>
-       <td> <input id="<?=$data->id;?>" data-form="<?= $data->name; ?>" type="checkbox"> #<?= $no; ?> </td>
+       <td> <input id="<?=$data->id;?>" data-form="<?= $data->name; ?>" type="checkbox"> #<?= $fno; ?> </td>
        <td> <?= $data->name; ?> </td>
        <td> <?= $data->date_created; ?> </td>
        <td> <a id="display-formulir-link" href="/display-formulir?id=<?= $data->id; ?>">View</a> | 

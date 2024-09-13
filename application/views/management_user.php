@@ -66,9 +66,10 @@
     <?php if(!empty($data_user)): ?>
       <?php $no = 0; ?>
     <?php foreach($data_user as $data): ?>
-      <?php $no++;  ?>
+      <?php $no++;   
+      $fno = $this->txtformatter->generate2Digit($no); ?>
      <tr>
-       <td> <input id="<?=$data->id;?>" type="checkbox"> #<?= $no; ?> </td>
+       <td> <input id="<?=$data->id;?>" type="checkbox"> #<?= $fno; ?> </td>
        <td> <?= $data->fullname; ?> </td>
        <td> <?= $data->username; ?> </td>
        <td> <a href="#" class="show-pass-link" data-real="<?= $data->pass; ?>">Show</a>

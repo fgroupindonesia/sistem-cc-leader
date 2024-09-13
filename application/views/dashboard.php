@@ -77,9 +77,11 @@
       <?php if($data_form != false): ?>
         <?php foreach ($data_form as $dataF): ?>
       <div class="col">
-        <img src="/assets/images/edit.png">
         <?php $urlname = strtolower(str_replace(' ','_', $dataF->name)); ?>
-        <br><a href="/form?name=<?=$urlname;?>">Formulir <?= $dataF->name ;?></a>
+        <a href="/form?name=<?=$urlname;?>">
+        <img src="/assets/images/edit.png">
+       
+        <br>Formulir <?= $dataF->name ;?></a>
       </div>
         <?php endforeach; ?>
       <?php endif; ?>
@@ -104,14 +106,15 @@
   <hr>
 
   <!-- recent data -->
-  <div class="row">
+  <?php if($user_divisi != 'Leader'): ?>
+  <div id="table-dashboard-data" class="row">
       <div class="col segment">
-        <h3>Recent Formulir</h3>
+        <h3>Recent Edit Formulir</h3>
         <table>
             <thead>
               <tr>
               <th>No.</th>
-              <th>Nama</th>
+              <th>Nama Formulir</th>
               <th>Date Created</th>
               </tr>
             </thead>
@@ -132,24 +135,27 @@
       </div>
 
     <div class="col segment">
-      <h3>Latest Users</h3>
+      <?php if($user_divisi == 'IT'): ?>
+      <h3>Latest Changes</h3>
           <table>
             <thead>
               <tr>
               <th>No.</th>
-              <th>Fullname </th>
-              <th>Email </th>
-              <th>Date Created</th>
+              <th>Formulir </th>
+              <th>Before </th>
+              <th>After</th>
+              <th>Date Modified</th>
               </tr>
             </thead>
             <tbody>
-              <?php if(!empty($data_user)): ?>
-                <?php $nomer=1; ?>
-                <?php foreach($data_user as $datana): ?>  
+              <?php if(!empty($data_history)): ?>
+              <?php $nomer=1; ?>
+                <?php foreach($data_history as $datana): ?>  
             <tr>
               <td><?= $nomer ;?></td>
-              <td><?= $datana->fullname ;?></td>
-              <td><?= $datana->email ;?> </td>
+              <td><?= $datana->formulir_name ;?></td>
+              <td><?= $datana->data_before ;?> </td>
+              <td><?= $datana->data_after ;?> </td>
               <td><?= $datana->date_created ;?></td>
             </tr>
                 <?php $nomer++; ?>
@@ -157,9 +163,11 @@
               <?php endif; ?>
           </tbody>
         </table>
+      <?php endif; ?>
     </div>
 
   </div>
+  <?php endif; ?>
   <!-- recent data -->
 
 </div>

@@ -807,3 +807,22 @@ body {
 .sidebar-header:hover{
   cursor:pointer;
 }
+
+#table-dashboard-data {
+  overflow-y: scroll !important;
+  /* display: block; */
+  max-height: 500px;
+}
+
+.sidebar-list {
+  padding-left: 0px !important;
+}
+
+.sidebar-list-item {
+  display: block;
+  width: 215px !important;
+}
+
+.sidebar-list-item span {
+  padding-left: 8px;
+}

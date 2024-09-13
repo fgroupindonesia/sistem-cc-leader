@@ -1,7 +1,7 @@
 <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assets/css/style-dashboard.css">
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-<script src="/assets/js/dashboard.js" type="text/javascript" ></script>
+
 
 <div class="app-container">
   <div class="sidebar">
@@ -43,25 +43,25 @@
   <div class="form-group row">
     <label for="text1" class="col-4 col-form-label">Full Name</label> 
     <div class="col-8">
-      <input id="text1" name="fullname" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->fullname : ''; ?>">
+      <input id="text1" required name="fullname" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->fullname : ''; ?>">
     </div>
   </div>
   <div class="form-group row">
     <label for="text2" class="col-4 col-form-label">Username</label> 
     <div class="col-8">
-      <input id="text2" name="username" <?= $b = isset($data_user)? 'readonly' : ''; ?> type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->username : ''; ?>">
+      <input id="text2" required name="username" <?= $b = isset($data_user)? 'readonly' : ''; ?> type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->username : ''; ?>">
     </div>
   </div>
   <div class="form-group row">
     <label for="text3" class="col-4 col-form-label">Password</label> 
     <div class="col-8">
-      <input id="text3" name="pass" type="password" class="form-control" value="<?= $a = isset($data_user)? $data_user->pass : ''; ?>">
+      <input id="text3" required name="pass" type="password" class="form-control" value="<?= $a = isset($data_user)? $data_user->pass : ''; ?>">
     </div>
   </div>
    <div class="form-group row">
     <label for="text9" class="col-4 col-form-label">Gedung</label> 
     <div class="col-8">
-      <input id="text9" name="gedung" type="number" class="form-control" value="<?= $a = isset($data_user)? $data_user->gedung : '0'; ?>">
+      <input id="text9" required name="gedung" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->gedung : '0'; ?>">
     </div>
   </div>
   <div class="form-group row">
@@ -79,13 +79,13 @@
   <div class="form-group row">
     <label for="text5" class="col-4 col-form-label">No HP:</label> 
     <div class="col-8">
-      <input id="text5" name="no_hp" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->no_hp : ''; ?>">
+      <input id="text5" required name="no_hp" type="text" class="form-control" value="<?= $a = isset($data_user)? $data_user->no_hp : ''; ?>">
     </div>
   </div> 
   <div class="form-group row">
     <label for="text6" class="col-4 col-form-label">Email</label> 
     <div class="col-8">
-      <input id="text6" name="email" type="email" class="form-control" value="<?= $a = isset($data_user)? $data_user->email : ''; ?>">
+      <input id="text6" required name="email" type="email" class="form-control" value="<?= $a = isset($data_user)? $data_user->email : ''; ?>">
     </div>
   </div> 
   <div class="form-group row">

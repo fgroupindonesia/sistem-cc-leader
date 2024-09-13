@@ -1,3 +1,6 @@
+<?php
+$locked_divisi = "";
+?>
 <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assets/css/style-dashboard.css">
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
@@ -63,8 +66,12 @@
   <div class="form-group row">
     <label for="text4" class="col-4 col-form-label">Divisi Bagian</label> 
     <div class="col-8">
-     
-      <select name="divisi"  >
+
+      <?php if($data_user->divisi != 'IT'): ?>
+      <?php $locked_divisi = "disabled"; ?>
+      <?php endif; ?>
+
+      <select name="divisi" <?= $locked_divisi; ?> >
         <option <?=$div_none;?> value="none"> </option>
         <option <?=$div_it;?> value="IT">IT</option>
         <option <?=$div_doc;?> value="Document Control">Doc.Control</option>
@@ -97,5 +104,8 @@
 
 <script src="/assets/js/jquery371.min.js"></script>
   <script src="/assets/js/jquery-ui.min.js"></script>
+  <script src="/assets/js/js.cookie.min.js"></script>
+  <script src="/assets/js/custom-actions.js"></script>
+  <script src="/assets/js/dashboard.js"></script>
   
   

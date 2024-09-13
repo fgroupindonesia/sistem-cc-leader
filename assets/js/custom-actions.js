@@ -1,6 +1,9 @@
+const URL_DASHBOARD = "/dashboard";
 const URL_ADD_FORM = "/insert-formulir";
 const URL_ADD_USER = "/insert-user";
+const URL_ADD_HISTORY_FORM = "/insert-history-formulir";
 const URL_UPDATE_USER = "/update-user";
+const URL_UPDATE_FORM = "/update-formulir";
 const URL_MANAGEMENT_FORM = "/management-formulir";
 const URL_MANAGEMENT_USER = "/management-user";
 
@@ -18,17 +21,42 @@ $(document).ready( function () {
 
     dontTakeHTMLPaste();
 
+    // this is for form saving mechanism
     $('body').on('click', '.save-template', function(){
         //alert('a');
         
         let datana = formna.formData;
         let namaform = $('#nama-formulir').val();
 
-        let jsondata = {name: namaform, code_json: datana};
+        let formType = $('#form-type').text();
+        let namaUser = $('#username').val();
+
+        let divisina = $('#divisi').val();
+                    
+
+        let jsondata = {divisi: divisina, name: namaform, code_json: datana};
 
         console.log(jsondata);
         
-        saveDataIntoDB(jsondata, URL_ADD_FORM);
+        if(formType=='Formulir Baru'){
+            saveDataIntoDB(jsondata, URL_ADD_FORM);
+        } else {
+
+            // if it is coming from EDITING
+            let idna = $('#id-form').val();
+             jsondata = {id: idna, divisi: divisina, name: namaform, code_json: datana};
+            
+             let codeJsonBefore = $('#hidden-code-json').text();
+
+            console.log(namaform);
+            console.log(divisina);
+            //console.log(namaform);
+            compareCodeJson(codeJsonBefore, datana, namaform, namaUser);
+            //saveDataIntoDB(jsondata, URL_UPDATE_FORM);
+        }
+
+
+
     });
 
      $('body').on('submit', '#form-user', function(e){
@@ -37,8 +65,18 @@ $(document).ready( function () {
         e.preventDefault();
         let act = $(this).attr('action');
 
+        // temporary open the disabled item
+        var disabled1 = $(this).find(':input:disabled').removeAttr('disabled');
+        var disabled2 = $(this).find('select:disabled').removeAttr('disabled');
 
         let jsondata = $(this).serialize();
+
+        //console.log(jsondata);
+        //alert(jsondata);
+
+        // re-disabled the set of inputs that you previously enabled
+        disabled1.attr('disabled','disabled');
+        disabled2.attr('disabled','disabled');
 
         console.log(jsondata);
         
@@ -50,6 +88,41 @@ $(document).ready( function () {
     });
 
   });
+
+function compareCodeJson(jsonBefore, jsonAfter, formName, usernameNa){
+
+    let dataBefore = JSON.parse(jsonBefore);
+    let dataAfter = JSON.parse(jsonAfter);
+
+    let sBefore='';
+    let sAfter='';
+    let typeElement = '';
+
+    let i=0;
+    
+
+    for(i=0; i<dataBefore.length; i++){
+        typeElement = dataBefore[i].type;
+        console.log(dataBefore[i].label + '\n');
+        console.log(dataAfter[i].label + '\n');
+
+        sBefore = dataBefore[i].label;
+        sAfter = dataAfter[i].label;
+
+        if(typeElement == 'button'){
+            break;
+        }
+
+        let dataFinal  = {username : usernameNa, formulir_name:formName, data_before: sBefore, data_after: sAfter};
+        
+        if(sBefore != sAfter)
+        saveDataIntoDB(dataFinal, URL_ADD_HISTORY_FORM);
+
+        //console.log(JSON.stringify(dataFinal));
+    }
+
+
+}
 
 function dontTakeHTMLPaste(){
 
@@ -94,10 +167,14 @@ function saveDataIntoDB(datana, URLna){
               data: datana,
               success: function(response) {
                  console.log(response + ' waw!');
-                 if(URLna.includes('formulir')){
+                 if(datana.divisi == "IT" && URLna.includes('formulir')) {
                     window.location = URL_MANAGEMENT_FORM;
+                 }else if(URLna.includes('formulir')){
+                    window.location = URL_DASHBOARD;
                  }else if(URLna.includes('user')){
                     window.location = URL_MANAGEMENT_USER;
+                 }else if(URLna.includes('history')){
+                    // let it stay
                  }
 
               },

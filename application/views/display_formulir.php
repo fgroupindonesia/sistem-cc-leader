@@ -29,7 +29,8 @@
   <form action="/add-new-data-formulir" method="post">  
     <?php if(isset($status)): ?>
       <?php if($status == 'input') : ?>
-    <input type="hidden" value=<?= $username; ?> name="username">    
+    <input type="hidden" value=<?= $username; ?> name="username">
+    <input type="hidden" value=<?= $gedung; ?> name="gedung">    
     <input type="hidden" value="<?= $fname; ?>" name="target-form" >
       <?php endif; ?>
     <?php endif; ?>

@@ -70,15 +70,19 @@ class DBDynamic extends CI_Model {
 	private function create_sql_column($dataMasuk){
 
     $arr = json_decode($dataMasuk, true);    
-    $cString = "(id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY";
+    
+    // user want we add username and timestamp
+    // and also gedung in front after id
+    $cString = "(id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,gedung VARCHAR(75) NOT NULL, username VARCHAR(75) NOT NULL, date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP";
 
     foreach($arr as $item){
         $colName = str_replace("-","_", $item['name']);
         $cString .= "," . $colName . " " . $this->detect_type($item['type']) . " NOT NULL";
     }
 
-    // lastly we add username and timestamp
-    $cString .= ",username VARCHAR(75) NOT NULL, date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
+    
+    // this is the encloser of the query
+    $cString .= ")";
 
     return $cString;
 	}
