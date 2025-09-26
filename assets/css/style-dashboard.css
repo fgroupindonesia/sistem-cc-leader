@@ -197,7 +197,9 @@ body, html {
 body {
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
-  background-color: var(--app-bg);
+  
+
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -344,7 +346,10 @@ body {
 
 .app-content {
   padding: 16px;
-  background-color: var(--app-bg);
+
+  background-image: url('../images/bg-blue.jpeg');
+  background-size: cover;
+  
   height: 100%;
   flex: 1;
   max-height: 100%;

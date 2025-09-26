@@ -135,7 +135,7 @@
       </div>
 
     <div class="col segment">
-      <?php if($user_divisi == 'IT'): ?>
+  <?php if($user_divisi == 'IT' || $user_divisi == "Document Control"):?>
       <h3>Latest Changes</h3>
           <table>
             <thead>
@@ -149,8 +149,9 @@
             </thead>
             <tbody>
               <?php if(!empty($data_history)): ?>
-              <?php $nomer=1; ?>
-                <?php foreach($data_history as $datana): ?>  
+              <?php $nomer=1; 
+              $r_data_history = array_reverse($data_history); ?>
+                <?php foreach($r_data_history as $datana): ?>  
             <tr>
               <td><?= $nomer ;?></td>
               <td><?= $datana->formulir_name ;?></td>

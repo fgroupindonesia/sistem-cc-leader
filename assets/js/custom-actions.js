@@ -10,6 +10,10 @@ const URL_MANAGEMENT_USER = "/management-user";
 var fb = $('#fb-editor');
 let formna;
 
+let _lastJSONData=null;
+let _countWorksChanges = 0;
+let _totalWorks = 0;
+
 $(document).ready( function () {
     
     // dont do making builder if the 
@@ -46,16 +50,31 @@ $(document).ready( function () {
             let idna = $('#id-form').val();
              jsondata = {id: idna, divisi: divisina, name: namaform, code_json: datana};
             
+            // store for later usage in returning calls
+            _lastJSONData = jsondata;
+
              let codeJsonBefore = $('#hidden-code-json').text();
 
             console.log(namaform);
             console.log(divisina);
             //console.log(namaform);
             compareCodeJson(codeJsonBefore, datana, namaform, namaUser);
-            //saveDataIntoDB(jsondata, URL_UPDATE_FORM);
+            
         }
 
 
+
+    });
+
+    $('#nama-formulir').on('keyup', function(e){
+
+        // i want to protect the naming convention
+        // no symbolic dangerous characters are allowed there
+
+        let word = $(this).val();
+
+        let cleared = sanitizeInput(word);
+        $('#nama-formulir').val(cleared);
 
     });
 
@@ -89,6 +108,17 @@ $(document).ready( function () {
 
   });
 
+function sanitizeInput(input) {
+  // Use a regular expression to match all characters that are not alphabetic, numeric, or spaces
+  const regex = /[^a-zA-Z0-9\s]/g;
+
+  // Replace all matches with an empty string, effectively removing them
+  const sanitizedInput = input.replace(regex, '');
+
+  // Return the sanitized input
+  return sanitizedInput;
+}
+
 function compareCodeJson(jsonBefore, jsonAfter, formName, usernameNa){
 
     let dataBefore = JSON.parse(jsonBefore);
@@ -99,6 +129,12 @@ function compareCodeJson(jsonBefore, jsonAfter, formName, usernameNa){
     let typeElement = '';
 
     let i=0;
+
+    // starting
+    _countWorksChanges = 0;
+    _totalWorks = 0;
+
+    let dataNeedsToSend = [];
     
 
     for(i=0; i<dataBefore.length; i++){
@@ -116,9 +152,18 @@ function compareCodeJson(jsonBefore, jsonAfter, formName, usernameNa){
         let dataFinal  = {username : usernameNa, formulir_name:formName, data_before: sBefore, data_after: sAfter};
         
         if(sBefore != sAfter)
-        saveDataIntoDB(dataFinal, URL_ADD_HISTORY_FORM);
-
+            dataNeedsToSend.push(dataFinal);
+        
         //console.log(JSON.stringify(dataFinal));
+    }
+
+    // stored as number reference
+    _totalWorks = dataNeedsToSend.length;
+
+    // now send them all
+    for(i=0; i<dataNeedsToSend.length; i++){
+        let dna = dataNeedsToSend[i];
+        saveDataIntoDB(dna, URL_ADD_HISTORY_FORM);
     }
 
 
@@ -169,12 +214,25 @@ function saveDataIntoDB(datana, URLna){
                  console.log(response + ' waw!');
                  if(datana.divisi == "IT" && URLna.includes('formulir')) {
                     window.location = URL_MANAGEMENT_FORM;
+                 }else if(URLna.includes('history')){
+                    // let it stay
+                    // for a while
+                    // until the calls ended
+                    if(_totalWorks != _countWorksChanges){
+                    _countWorksChanges++;
+                    }
+
+                    if(_totalWorks == _countWorksChanges){
+                    
+                        saveDataIntoDB(_lastJSONData, URL_UPDATE_FORM);
+                    }
+
+                    console.log('tersimpan history!');
+
                  }else if(URLna.includes('formulir')){
                     window.location = URL_DASHBOARD;
                  }else if(URLna.includes('user')){
                     window.location = URL_MANAGEMENT_USER;
-                 }else if(URLna.includes('history')){
-                    // let it stay
                  }
 
               },
